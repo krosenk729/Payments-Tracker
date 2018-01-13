@@ -1,0 +1,27 @@
+table, form{
+	width: 100%;
+}
+input{
+	width: 150px;
+}
+small{
+	float: left;
+}
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[name='cost']{
+	width: 100px;
+}
+col:nth-child(2),col:nth-child(3){
+	width: 140px;
+}
+col:nth-child(5){
+	width: 40px;
+	text-align: center;
+}
