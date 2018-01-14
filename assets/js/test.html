@@ -8,7 +8,7 @@
 	<div style="margin: 0 auto;">
 		<button>Let's Make Magic</button>
 		<br>
-		<input type="text" name="a-thing">
+		<input type="text" id="a-thing">
 	</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -71,12 +71,14 @@
   ///////////////////////////////////////////////////////
   function doAddDataStuff(){
   	let newThing = $('#a-thing').val();
+  	let newUsersThing = {};
+  	newUsersThing[newThing] = true;
   	let dbPathUser = 'test/users/' + firebase.auth().currentUser.uid + '/payments';
   	let dbPathThing = 'test/payments';
 
   	//{test/users/UID/payments: {PID: true}, test/payments/PID: {thing: thingname, uid: UID}}
 
-  	firebase.database().ref(dbPathUser).update({newThing: true});
+  	firebase.database().ref(dbPathUser).update(newUsersThing);
   	firebase.database().ref(dbPathThing).push({name: newThing, uid: firebase.auth().currentUser.uid });
 
   	$('#a-thing').val('');
