@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		main{
+			display: flex;
+			justify-content: space-around;
+			flex-wrap: wrap;
+		}
+		main > div{
+			flex-basis: 50%;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<div>
+			<button>Let's Make Magic</button>
+			<br>
+			<input type="text" id="a-thing">
+		</div>
+		<div>
+			Mischief Managed
+			<code>
+				var currUser = firebase.auth().currentUser
+
+				var addedPromise = firebase.database().ref('user-posts/' + currUser.uid).update({keyName: val})
+
+				var exampleResults = firebase.database().ref('user-posts/' + currUser.uid).orderByChild('keyName')
+			</code>
+		</div>
+		<div>
+			<h2>Data Modelers</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>First Login</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr><td>Tiny Buddha</td>
+						<td>1900</td>
+					</tr>
+					<tr><td>Happy Buddha</td>
+						<td>1800</td>
+					</tr>
+					<tr><td>Gold Buddha</td>
+						<td>1700</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h2>Gratitudes</h2>
+			<table>
+				<thead>
+					<tr><th>Gratitude</th>
+						<th>Indx</th>
+						<th>When</th>
+						<th>Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Family</td>
+						<td>A</td>
+						<td>Every day</td>
+						<td>Tiny Buddha</td>
+					</tr>
+					<tr><td>Friends</td>
+						<td>B</td>
+						<td>All the time</td>
+						<td>Tiny Buddha</td>
+					</tr>
+					<tr><td>Able body</td>
+						<td>C</td>
+						<td>Now and forever</td>
+						<td>Tiny Buddha</td>
+					</tr>
+					<tr><td>Communication</td>
+						<td>D</td>
+						<td>Every day</td>
+						<td>Tiny Buddha</td>
+					</tr>
+					<tr><td>Sun</td>
+						<td>E</td>
+						<td>All the time</td>
+						<td>Happy Buddha</td>
+					</tr>
+					<tr><td>Transportation</td>
+						<td>F</td>
+						<td>Now and forever</td>
+						<td>Happy Buddha</td></tr>
+						<tr><td>Music</td>
+							<td>G</td>
+							<td>Every day</td>
+							<td>Happy Buddha</td>
+						</tr>
+						<tr><td>A home</td>
+							<td>H</td>
+							<td>All the time</td>
+							<td>Happy Buddha</td>
+						</tr>
+						<tr><td>Kind strangers</td>
+							<td>I</td>
+							<td>Now and forever</td>
+							<td>Gold Buddha</td>
+						</tr>
+						<tr><td>Learning</td>
+							<td>J</td>
+							<td>Every day</td>
+							<td>Gold Buddha</td>
+						</tr>
+						<tr><td>Laughter</td>
+							<td>K</td>
+							<td>All the time</td>
+							<td>Gold Buddha</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		<div>
+			<code>
+				
+			</code>
+		</div>
+	</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-auth.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD6FBfO14EljQNaKSud9lHWlsasUita6uY",
+    authDomain: "recurring-payments-tracker.firebaseapp.com",
+    databaseURL: "https://recurring-payments-tracker.firebaseio.com",
+    projectId: "recurring-payments-tracker",
+    storageBucket: "recurring-payments-tracker.appspot.com",
+    messagingSenderId: "428623070633"
+  };
+  firebase.initializeApp(config);
+  var provider = new firebase.auth.GoogleAuthProvider();
+  // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+
+  $('button').click(doLoginStuff);
+  $('#a-thing').blur(addAThing);
+
+  ///////////////////////////////////////////////////////
+
+  function doLoginStuff() {
+  	firebase.auth().signInWithPopup(provider).then(function(result) {
+	  // This gives you a Google Access Token. You can use it to access the Google API.
+	  var token = result.credential.accessToken;
+	  // The signed-in user info.
+	  var user = result.user;
+	  console.log('promise from provider ran', result);
+	}).catch(function(error) {
+	  // Handle Errors here.
+	  var errorCode = error.code;
+	  var errorMessage = error.message;
+	  // The email of the user's account used.
+	  var email = error.email;
+	  // The firebase.auth.AuthCredential type that was used.
+	  var credential = error.credential;
+	  
+	  console.log('error', error);
+	});
+  }
+
+  firebase.auth().onAuthStateChanged(function(user) {
+	  if (user) {
+	    console.log('User is signed in.', user);
+	    firebase.database().ref('test/users').child(user.uid).update({
+	    	name: user.displayName,
+	    	img: user.photoURL,
+	    	id: user.uid 
+	    });
+	  } else {
+	    // No user is signed in.
+	  }
+	});
+
+
+  ///////////////////////////////////////////////////////
+  function addAThing(){
+  	let newThing = $('#a-thing').val();
+  	let newUsersThing = {};
+  	newUsersThing[newThing] = true;
+  	let dbPathUser = 'test/users/' + firebase.auth().currentUser.uid + '/payments';
+  	let dbPathThing = 'test/payments';
+
+  	//{test/users/UID/payments: {PID: true}, test/payments/PID: {thing: thingname, uid: UID}}
+
+  	firebase.database().ref(dbPathUser).update(newUsersThing);
+  	firebase.database().ref(dbPathThing).push({name: newThing, uid: firebase.auth().currentUser.uid });
+
+  	$('#a-thing').val('');
+  }
+
+  function addThingHere(thing, here){
+  	if(!thing || !here){return ;}
+
+  	firebase.database().ref(here).update(thing);
+  }
+  function playWithUserDataStuff(){
+  	return firebase.auth().currentUser;
+  }
+  function playWithAdded(thing, here){
+  	if(!thing || !here){return ;}
+  	firebase.database().ref(here)
+  		.update(thing).then(function(data){
+  			console.log(data);
+  		});
+  }
+  function deletAPath(here){
+  	firebase.database().ref(here).remove()
+  		.then((res) => {console.log(res);});
+  }
+
+  ///////////////////////////////////////////////////////
+
+  function monitorThis(monitorpath = ''){
+  	firebase.database().ref().off();
+  	firebase.database().ref(monitorpath).on('value', function(data){
+  		console.log('on value happened', data);
+  	});
+  }
+  monitorThis('test');
+
+</script>
+<script type="text/javascript">
+	//////////////////////////////
+	// Add All New Members
+	/////////////////////////////
+
+	let myGratitudes = [
+	{gratitude: 'Family', indx: 'A', when: 'Every day', name: 'Tiny Buddha'},
+	{gratitude: 'Friends', indx: 'B', when: 'All the time', name: 'Tiny Buddha'},
+	{gratitude: 'Able body', indx: 'C', when: 'Now and forever', name: 'Tiny Buddha'},
+	{gratitude: 'Communication', indx: 'D', when: 'Every day', name: 'Tiny Buddha'},
+	{gratitude: 'Sun', indx: 'E', when: 'All the time', name: 'Happy Buddha'},
+	{gratitude: 'Transportation', indx: 'F', when: 'Now and forever', name: 'Happy Buddha'},
+	{gratitude: 'Music', indx: 'G', when: 'Every day', name: 'Happy Buddha'},
+	{gratitude: 'A home', indx: 'H', when: 'All the time', name: 'Happy Buddha'},
+	{gratitude: 'Kind strangers', indx: 'I', when: 'Now and forever', name: 'Gold Buddha'},
+	{gratitude: 'Learning', indx: 'J', when: 'Every day', name: 'Gold Buddha'}
+	];
+
+	let myMembers = {
+	'Tiny Buddha': {name: 'Tiny Buddha', firstLogin: '1900', gratitudes: []},
+	'Happy Buddha': {name: 'Happy Buddha', firstLogin: '1800', gratitudes: []},
+	'Gold Buddha': {name: 'Gold Buddha', firstLogin: '1700', gratitudes: []}
+	};
+
+	for(let i of myGratitudes){
+		firebase.database().ref('test/myGratitudes')
+		.push(i)
+		.then((data)=> {
+			myMembers[i.name].gratitudes.push(data.path.n.pop());
+		});
+	}
+	for(let i in myMembers){
+		firebase.database().ref('test/myMembers').child(myMembers[i].name).update(myMembers[i]);
+	}
+	//////////////////////////////////////
+	// Add a New Row
+	/////////////////////////////////////
+	/* Someone added one more... let's add that item AND link its parent */
+
+	firebase.database().ref('test/myGratitudes').push({
+		gratitude: 'Laughter', 
+		indx: 'K', 
+		when: 'All the time', 
+		name: 'Gold Buddha'
+	})
+	.then((data)=> {
+		myMembers['Gold Buddha'].gratitudes.push(data.path.n.pop());
+		firebase.database().ref('test/myMembers')
+							.child('Gold Buddha/gratitudes')
+							.set(myMembers['Gold Buddha'].gratitudes);
+	});
+
+
+	//////////////////////////////////////
+	// Retreive Gratitudes... for just one member
+	/////////////////////////////////////
+	let currentMember = 'Happ Buddha';
+	firebase.database().ref('test/myGratitudes');
+
+
+</script>
+</body>
+</html>
