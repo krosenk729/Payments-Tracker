@@ -41,13 +41,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr><td>Tiny Buddha</td>
+					<tr><td>TinyBuddha</td>
 						<td>1900</td>
 					</tr>
-					<tr><td>Happy Buddha</td>
+					<tr><td>HappyBuddha</td>
 						<td>1800</td>
 					</tr>
-					<tr><td>Gold Buddha</td>
+					<tr><td>GoldBuddha</td>
 						<td>1700</td>
 					</tr>
 				</tbody>
@@ -67,56 +67,56 @@
 						<td>Family</td>
 						<td>A</td>
 						<td>Every day</td>
-						<td>Tiny Buddha</td>
+						<td>TinyBuddha</td>
 					</tr>
 					<tr><td>Friends</td>
 						<td>B</td>
 						<td>All the time</td>
-						<td>Tiny Buddha</td>
+						<td>TinyBuddha</td>
 					</tr>
 					<tr><td>Able body</td>
 						<td>C</td>
 						<td>Now and forever</td>
-						<td>Tiny Buddha</td>
+						<td>TinyBuddha</td>
 					</tr>
 					<tr><td>Communication</td>
 						<td>D</td>
 						<td>Every day</td>
-						<td>Tiny Buddha</td>
+						<td>TinyBuddha</td>
 					</tr>
 					<tr><td>Sun</td>
 						<td>E</td>
 						<td>All the time</td>
-						<td>Happy Buddha</td>
+						<td>HappyBuddha</td>
 					</tr>
 					<tr><td>Transportation</td>
 						<td>F</td>
 						<td>Now and forever</td>
-						<td>Happy Buddha</td></tr>
+						<td>HappyBuddha</td></tr>
 						<tr><td>Music</td>
 							<td>G</td>
 							<td>Every day</td>
-							<td>Happy Buddha</td>
+							<td>HappyBuddha</td>
 						</tr>
 						<tr><td>A home</td>
 							<td>H</td>
 							<td>All the time</td>
-							<td>Happy Buddha</td>
+							<td>HappyBuddha</td>
 						</tr>
 						<tr><td>Kind strangers</td>
 							<td>I</td>
 							<td>Now and forever</td>
-							<td>Gold Buddha</td>
+							<td>GoldBuddha</td>
 						</tr>
 						<tr><td>Learning</td>
 							<td>J</td>
 							<td>Every day</td>
-							<td>Gold Buddha</td>
+							<td>GoldBuddha</td>
 						</tr>
 						<tr><td>Laughter</td>
 							<td>K</td>
 							<td>All the time</td>
-							<td>Gold Buddha</td>
+							<td>GoldBuddha</td>
 						</tr>
 					</tbody>
 				</table>
@@ -237,22 +237,22 @@
 	/////////////////////////////
 
 	let myGratitudes = [
-	{gratitude: 'Family', indx: 'A', when: 'Every day', name: 'Tiny Buddha'},
-	{gratitude: 'Friends', indx: 'B', when: 'All the time', name: 'Tiny Buddha'},
-	{gratitude: 'Able body', indx: 'C', when: 'Now and forever', name: 'Tiny Buddha'},
-	{gratitude: 'Communication', indx: 'D', when: 'Every day', name: 'Tiny Buddha'},
-	{gratitude: 'Sun', indx: 'E', when: 'All the time', name: 'Happy Buddha'},
-	{gratitude: 'Transportation', indx: 'F', when: 'Now and forever', name: 'Happy Buddha'},
-	{gratitude: 'Music', indx: 'G', when: 'Every day', name: 'Happy Buddha'},
-	{gratitude: 'A home', indx: 'H', when: 'All the time', name: 'Happy Buddha'},
-	{gratitude: 'Kind strangers', indx: 'I', when: 'Now and forever', name: 'Gold Buddha'},
-	{gratitude: 'Learning', indx: 'J', when: 'Every day', name: 'Gold Buddha'}
+	{gratitude: 'Family', indx: 'A', when: 'Every day', name: 'TinyBuddha'},
+	{gratitude: 'Friends', indx: 'B', when: 'All the time', name: 'TinyBuddha'},
+	{gratitude: 'Able body', indx: 'C', when: 'Now and forever', name: 'TinyBuddha'},
+	{gratitude: 'Communication', indx: 'D', when: 'Every day', name: 'TinyBuddha'},
+	{gratitude: 'Sun', indx: 'E', when: 'All the time', name: 'HappyBuddha'},
+	{gratitude: 'Transportation', indx: 'F', when: 'Now and forever', name: 'HappyBuddha'},
+	{gratitude: 'Music', indx: 'G', when: 'Every day', name: 'HappyBuddha'},
+	{gratitude: 'A home', indx: 'H', when: 'All the time', name: 'HappyBuddha'},
+	{gratitude: 'Kind strangers', indx: 'I', when: 'Now and forever', name: 'GoldBuddha'},
+	{gratitude: 'Learning', indx: 'J', when: 'Every day', name: 'GoldBuddha'}
 	];
 
 	let myMembers = {
-	'Tiny Buddha': {name: 'Tiny Buddha', firstLogin: '1900', gratitudes: []},
-	'Happy Buddha': {name: 'Happy Buddha', firstLogin: '1800', gratitudes: []},
-	'Gold Buddha': {name: 'Gold Buddha', firstLogin: '1700', gratitudes: []}
+	'TinyBuddha': {name: 'TinyBuddha', firstLogin: '1900', gratitudes: []},
+	'HappyBuddha': {name: 'HappyBuddha', firstLogin: '1800', gratitudes: []},
+	'GoldBuddha': {name: 'GoldBuddha', firstLogin: '1700', gratitudes: []}
 	};
 
 	for(let i of myGratitudes){
@@ -286,20 +286,20 @@
 		gratitude: 'Laughter', 
 		indx: 'K', 
 		when: 'All the time', 
-		name: 'Gold Buddha'
+		name: 'GoldBuddha'
 	})
 	.then((data)=> {
-		myMembers['Gold Buddha'].gratitudes.push(data.path.n.pop());
+		myMembers['GoldBuddha'].gratitudes.push(data.path.n.pop());
 		firebase.database().ref('test/myMembers')
-							.child('Gold Buddha/gratitudes')
-							.set(myMembers['Gold Buddha'].gratitudes);
+							.child('GoldBuddha/gratitudes')
+							.set(myMembers['GoldBuddha'].gratitudes);
 	});
 
 
 	//////////////////////////////////////
 	// Retreive Gratitudes... for just one member
 	/////////////////////////////////////
-	let currentMember = 'Happ Buddha';
+	let currentMember = 'HappyBuddha';
 	firebase.database().ref('test/myGratitudes');
 
 </script>
