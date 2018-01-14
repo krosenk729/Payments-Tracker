@@ -57,7 +57,7 @@
   firebase.auth().onAuthStateChanged(function(user) {
 	  if (user) {
 	    console.log('User is signed in.', user);
-	    firebase.database().ref('test/users').child(uid).update({
+	    firebase.database().ref('test/users').child(user.uid).update({
 	    	name: user.displayName,
 	    	img: user.photoURL,
 	    	id: user.uid 

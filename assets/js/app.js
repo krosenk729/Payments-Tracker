@@ -1,5 +1,6 @@
 // (function(){
 	// Initialize Firebase
+	// Temp UID : dUXuGqt7Y4YzxOUFSzMqnyPTlIJ2 (katherine (9L))
 	// https://console.firebase.google.com/u/0/project/recurring-payments-tracker/authentication/providers
 	// https://console.developers.google.com/apis/credentials?project=recurring-payments-tracker&authuser=0
 	var config = {
@@ -8,11 +9,7 @@
 		databaseURL: "https://recurring-payments-tracker.firebaseio.com",
 		projectId: "recurring-payments-tracker",
 		storageBucket: "recurring-payments-tracker.appspot.com",
-		messagingSenderId: "428623070633",
-		// authDomain: "428623070633-6l7sno912iutfj9mv6buoesn9met5rpd.apps.googleusercontent.com",
-		// apiKey: "tHycux-cwaP36b7zlRs1EYES"
-		authDomain: " 428623070633-8v8d0p607d22617u4tl1b34u0a7qss3e.apps.googleusercontent.com ",
-		apiKey: "UxJ0IBUu5S9seNc06NXEY7sO"
+		messagingSenderId: "428623070633"
 	};
 	firebase.initializeApp(config);
 
@@ -73,7 +70,8 @@
 	}
 
 	function setUserContext(user){
-		
+		//Get only payments associated with a user
+		userContext = '';
 	}
 
 	function delPayment(){
