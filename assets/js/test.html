@@ -78,6 +78,8 @@
 
   	firebase.database().ref(dbPathUser).update({newThing: true});
   	firebase.database().ref(dbPathThing).push({name: newThing, uid: firebase.auth().currentUser.uid });
+
+  	$('#a-thing').val('');
   }
 
   ///////////////////////////////////////////////////////
