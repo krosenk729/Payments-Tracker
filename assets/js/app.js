@@ -1,24 +1,35 @@
-(function(){
+// (function(){
 	// Initialize Firebase
+	// https://console.firebase.google.com/u/0/project/recurring-payments-tracker/authentication/providers
+	// https://console.developers.google.com/apis/credentials?project=recurring-payments-tracker&authuser=0
 	var config = {
 		apiKey: "AIzaSyD6FBfO14EljQNaKSud9lHWlsasUita6uY",
 		authDomain: "recurring-payments-tracker.firebaseapp.com",
 		databaseURL: "https://recurring-payments-tracker.firebaseio.com",
 		projectId: "recurring-payments-tracker",
 		storageBucket: "recurring-payments-tracker.appspot.com",
-		messagingSenderId: "428623070633"
+		messagingSenderId: "428623070633",
+		// authDomain: "428623070633-6l7sno912iutfj9mv6buoesn9met5rpd.apps.googleusercontent.com",
+		// apiKey: "tHycux-cwaP36b7zlRs1EYES"
+		authDomain: " 428623070633-8v8d0p607d22617u4tl1b34u0a7qss3e.apps.googleusercontent.com ",
+		apiKey: "UxJ0IBUu5S9seNc06NXEY7sO"
 	};
 	firebase.initializeApp(config);
 
-	const dbRef = firebase.database();
-	const payRef = dbRef.ref('payments');
+	let fbProvder = new firebase.auth.GoogleAuthProvider(),
+		fbAuth = firebase.auth(), 
+		dbRef = firebase.database(),
+		usrRef = dbRef.ref('users'),
+		payRef = dbRef.ref('payments'),
+		userContext = '',
+		runningTotal = 0; //cost of all payments
 
-	let runningTotal = 0; //cost of all payments
-
-	$('.btn-add-new').click(sendNewPayment);
+	$('.btn-add-new').on('click', sendNewPayment);
 	$('.payments-items').on('change', 'input, select', updatePayment);
 	$('.payments-items').on('click', 'btn-remove-row', delPayment);
-
+	$('.bt-user-login').click(signUserIn);
+	$('.bt-user-logout').click(signUserOut);
+	
 	payRef.on('child_changed', function(data, data2){
 		// console.log('child_changed', data, data2);
 		showPayments(data);
@@ -31,18 +42,51 @@
 		console.log(data);
 	});
 
+	fbAuth.onAuthStateChanged(function(user){
+		if(user){
+			$('.payments-list').show();
+			$('.placeholder-for-list').hide();
+			$('.user-img').attr('src', user.photoURL);
+			$('.user-nm').text(user.displayName);
+			setUserContext(user);
+		}else{
+			$('.payments-list').hide();
+			$('.placeholder-for-list').show();
+		}
+	});
+
+	function signUserIn(){
+		let provider = new firebase.auth.GoogleAuthProvider();
+		fbAuth.signInWithPopup(provider)
+		.then(function(user){
+			let p = 'users/' + user.uid,
+				o = {uid: user.uid};
+			updateFirebase(o, p, 'update');
+		})
+		.error(function(err){
+			console.log('error on signUserIn', err);
+		});
+	}
+
+	function signUserOut(){
+		fbAuth.signOut();
+	}
+
+	function setUserContext(user){
+		
+	}
+
 	function delPayment(){
 		console.log( 'del is not written yet', this );
 	}
 
-
 	/* Function to update only one field when inputs updated */
 	function updatePayment(){
 		let p = 'payments/' + $(this).parentsUntil('tbody')[1].attributes["data-id"].value,
-		o = {};
+			o = {};
 
+		//Send updated values to firebase
 		o[$(this).attr('name')] = $(this).val();
-		console.log('updatePayment was called', o, p);
 		updateFirebase(o, p, 'update');
 	}
 
@@ -61,9 +105,10 @@
 			firstEvntTime: $('#new-firstEvntTime').val().trim()
 		};
 
+		// Send New Payment to Firebase (push)
 		updateFirebase(p, r);
 
-		// Assume it is a new form and reset form values
+		//Reset Form
 		$('#new-store, #new-cost').val('');
 		$('#new-firstEvntTime').val('12:00');
 		$('#new-firstEvntDay').val( moment().format('YYYY-MM-DD') );
@@ -141,4 +186,4 @@
 		.diff( nextEventDay + ' ' + nextEventTime , unit);
 	}
 
-})();
+// })();

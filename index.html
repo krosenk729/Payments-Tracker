@@ -11,14 +11,29 @@
 	<div class="container">
 		<div class="jumbotron">
 			<h1>Your Recurring Payments</h1>
-			<img src="">
-			<button>Log In</button>
-			<button>Log Out</button>
-			<select>
-				<div>Placeholder for show/hide totals</div>
-			</select>
+			<button class="btn bt-user-login">Log In</button>
+			<div class="user-loggedin">
+				<h4 class="user-nm"></h4>
+				<button class="btn bt-user-logout">Log Out</button>
+				<img class="user-img" src="">
+				<div class="view-options">
+					<input type="radio" id="hidetotal-true" name="hidetotal">
+					<label for="hidetotal-true">Ignorance is Bliss</label>
+					<input type="radio" id="hidetotal-false" name="hidetotal" checked>
+					<label for="hidetotal-false">Face Reality</label>
+				</div>
+				<div class="view-options">
+					<input type="radio" id="countdown-min" name="countdown-units">
+					<label for="countdown-min">Count down in minutes</label>
+					<input type="radio" id="countdown-days" name="countdown-units" checked>
+					<label for="countdown-days">Count down in days</label>
+				</div>
+			</div>
 		</div>
-		<div class="card">
+		<div class="placeholder-for-list card" style="display: none">
+			You must sign in to manage recurring payments
+		</div>
+		<div class="payments-list card">
 			<table class="table" id="payments-list">
 				<colgroup>
 					<col>
@@ -146,6 +161,7 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-auth.js"></script>
 	<script src="assets/js/app.js"></script>
 </body>
 </html>

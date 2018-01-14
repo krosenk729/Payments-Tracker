@@ -1,3 +1,12 @@
+$color-tq: #37c3be;
+$color-drpurp: #20109a;
+$color-mdpurp: #2d208f;
+$color-ltpurp: #3c2abf;
+$color-pinkish: #fa4359;
+$color-whitish: #fefefe;
+
+//PAGE SETUP
+
 table, form{
 	width: 100%;
 }
@@ -25,3 +34,13 @@ col:nth-child(5){
 	width: 40px;
 	text-align: center;
 }
+
+//STYLES 
+h1, h2, h3, h4{
+	color: $color-drpurp;
+}
+
+body{
+	background: url('assets/css/bg.svg');
+}
+
