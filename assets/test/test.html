@@ -256,11 +256,23 @@
 	};
 
 	for(let i of myGratitudes){
-		firebase.database().ref('test/myGratitudes')
-		.push(i)
-		.then((data)=> {
-			myMembers[i.name].gratitudes.push(data.path.n.pop());
-		});
+		if(!i.path){
+			firebase.database().ref('test/myGratitudes')
+			.push(i)
+			.then((data)=> {
+				let tempID = data.path.n[data.path.n.length];
+				myMembers[i.name].gratitudes.push(tempID);
+				i.path = tempID;
+			});
+		} else {
+			firebase.database().ref('test/myGratitudes').child(i.path)
+			.update(i)
+			.then((data)=> {
+				// Already referenced by member (hopefully)
+				// let tempID = data.path.n[data.path.n.length];
+				// myMembers[i.name].gratitudes.push(tempID);
+			});
+		}
 	}
 	for(let i in myMembers){
 		firebase.database().ref('test/myMembers').child(myMembers[i].name).update(myMembers[i]);
@@ -289,7 +301,6 @@
 	/////////////////////////////////////
 	let currentMember = 'Happ Buddha';
 	firebase.database().ref('test/myGratitudes');
-
 
 </script>
 </body>
