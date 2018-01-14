@@ -301,8 +301,15 @@
 	//////////////////////////////////////
 	// Retreive Gratitudes... for just one member
 	/////////////////////////////////////
-	let currentMember = 'HappyBuddha';
-	firebase.database().ref('test/myGratitudes');
+	firebase.database().ref('test').off();
+	let arrayOfGraditudesForcurrentMember, 
+		currentMember = 'GoldBuddha';
+  	firebase.database().ref('test/myGratitudes')
+  		.orderByChild('name').equalTo(currentMember)
+	  	.once('value', function(data){
+	  		console.log('on value happened', data.val());
+	  		arrayOfGraditudesForcurrentMember = data.val();
+	  	});
 
 </script>
 </body>
