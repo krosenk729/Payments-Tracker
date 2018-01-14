@@ -260,9 +260,11 @@
 			firebase.database().ref('test/myGratitudes')
 			.push(i)
 			.then((data)=> {
-				let tempID = data.path.n[data.path.n.length];
-				myMembers[i.name].gratitudes.push(tempID);
+				// let tempID = data.path.n[data.path.n.length-1];
+				let tempID = data.path.n.pop();
 				i.path = tempID;
+				myMembers[i.name].gratitudes.push(tempID);
+				
 			});
 		} else {
 			firebase.database().ref('test/myGratitudes').child(i.path)
