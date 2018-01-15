@@ -17,16 +17,17 @@
 		fbAuth = firebase.auth(), 
 		dbRef = firebase.database(),
 		usrRef = dbRef.ref('users'),
-		payRef = dbRef.ref('payments'),
+		payRef = dbRef.ref('payments'), //dbRef.ref('payments').orderByChild('user').equalTo(user.uid)
 		userContext = '',
 		runningTotal = 0; //cost of all payments
 
 	$('.btn-add-new').on('click', sendNewPayment);
 	$('.payments-items').on('change', 'input, select', updatePayment);
 	$('.payments-items').on('click', 'btn-remove-row', delPayment);
+
 	$('.bt-user-login').click(signUserIn);
 	$('.bt-user-logout').click(signUserOut);
-	
+
 	payRef.on('child_changed', function(data, data2){
 		// console.log('child_changed', data, data2);
 		showPayments(data);
@@ -71,7 +72,9 @@
 
 	function setUserContext(user){
 		//Get only payments associated with a user
-		userContext = '';
+		userContext = user.uid;
+		payRef = .ref('payments').orderByChild('user').equalTo(user.uid);
+		
 	}
 
 	function delPayment(){
