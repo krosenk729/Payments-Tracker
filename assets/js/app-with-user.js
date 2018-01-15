@@ -45,14 +45,13 @@ function signUserOut(){
 
 firebase.auth().onAuthStateChanged(function(user) {
   if(user){
-    console.log('sign in complete', user);
     currentUser = {
     	name: user.displayName, 
     	id: user.uid,
     	img: user.photoURL
     };
     firebase.database().ref('users').child(currentUser.id).update({
-    	id: currentUser.uid
+    	id: currentUser.id
     });
 
 	function switchUItoSignedIn(u){
@@ -63,6 +62,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 	}
 	switchUItoSignedIn(currentUser);
 	onlyIfSignedIn(currentUser);
+    console.log('sign in complete', user);
 
   } else {
     console.log('signed out / no user');
@@ -88,7 +88,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 */
 
 function onlyIfSignedIn(user){
-	firebase.database().ref('payments').orderByChild('user').equalTo(user.uid)
+	firebase.database().ref('payments').orderByChild('user').equalTo(user.id)
 		.on('child_changed', function(data){
 			showPayments(data);
 		});
