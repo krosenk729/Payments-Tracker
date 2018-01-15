@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		main{
+			display: flex;
+			justify-content: space-around;
+			flex-wrap: wrap;
+		}
+		main > div{
+			flex-basis: 50%;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<div>
+			<button>Let's Make Magic</button>
+			<br>
+			<input type="text" id="a-thing">
+		</div>
+		<div>
+			Mischief Managed
+			<code>
+				var currUser = firebase.auth().currentUser
+
+				var addedPromise = firebase.database().ref('user-posts/' + currUser.uid).update({keyName: val})
+
+				var exampleResults = firebase.database().ref('user-posts/' + currUser.uid).orderByChild('keyName')
+			</code>
+		</div>
+	</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-auth.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD6FBfO14EljQNaKSud9lHWlsasUita6uY",
+    authDomain: "recurring-payments-tracker.firebaseapp.com",
+    databaseURL: "https://recurring-payments-tracker.firebaseio.com",
+    projectId: "recurring-payments-tracker",
+    storageBucket: "recurring-payments-tracker.appspot.com",
+    messagingSenderId: "428623070633"
+  };
+  firebase.initializeApp(config);
+  var provider = new firebase.auth.GoogleAuthProvider();
+  // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+
+  $('button').click(doLoginStuff);
+  $('#a-thing').blur(addAThing);
+
+  ///////////////////////////////////////////////////////
+
+  function doLoginStuff() {
+  	firebase.auth().signInWithPopup(provider).then(function(result) {
+	  // This gives you a Google Access Token. You can use it to access the Google API.
+	  var token = result.credential.accessToken;
+	  // The signed-in user info.
+	  var user = result.user;
+	  console.log('promise from provider ran', result);
+	}).catch(function(error) {
+	  // Handle Errors here.
+	  var errorCode = error.code;
+	  var errorMessage = error.message;
+	  // The email of the user's account used.
+	  var email = error.email;
+	  // The firebase.auth.AuthCredential type that was used.
+	  var credential = error.credential;
+	  
+	  console.log('error', error);
+	});
+  }
+
+  firebase.auth().onAuthStateChanged(function(user) {
+	  if (user) {
+	    console.log('User is signed in.', user);
+	    firebase.database().ref('test/users').child(user.uid).update({
+	    	name: user.displayName,
+	    	img: user.photoURL,
+	    	id: user.uid 
+	    });
+	  } else {
+	    // No user is signed in.
+	  }
+	});
+
+
+  ///////////////////////////////////////////////////////
+  function addAThing(){
+  	let newThing = $('#a-thing').val();
+  	let newUsersThing = {};
+  	newUsersThing[newThing] = true;
+  	let dbPathUser = 'test/users/' + firebase.auth().currentUser.uid + '/payments';
+  	let dbPathThing = 'test/payments';
+
+  	//{test/users/UID/payments: {PID: true}, test/payments/PID: {thing: thingname, uid: UID}}
+
+  	firebase.database().ref(dbPathUser).update(newUsersThing);
+  	firebase.database().ref(dbPathThing).push({name: newThing, uid: firebase.auth().currentUser.uid });
+
+  	$('#a-thing').val('');
+  }
+
+  function addThingHere(thing, here){
+  	if(!thing || !here){return ;}
+
+  	firebase.database().ref(here).update(thing);
+  }
+  function playWithUserDataStuff(){
+  	return firebase.auth().currentUser;
+  }
+  function playWithAdded(thing, here){
+  	if(!thing || !here){return ;}
+  	firebase.database().ref(here)
+  		.update(thing).then(function(data){
+  			console.log(data);
+  		});
+  }
+  function deletAPath(here){
+  	firebase.database().ref(here).remove()
+  		.then((res) => {console.log(res);});
+  }
+
+  ///////////////////////////////////////////////////////
+
+  function monitorThis(monitorpath = ''){
+  	firebase.database().ref().off();
+  	firebase.database().ref(monitorpath).on('value', function(data){
+  		console.log('on value happened', data);
+  	});
+  }
+  monitorThis('test');
+
+</script>
+<script type="text/javascript">
+	//////////////////////////////
+	// Add All New Members
+	/////////////////////////////
+
+	let myGratitudes = [
+	{gratitude: 'Family', indx: 'A', when: 'Every day', name: 'TinyBuddha'},
+	{gratitude: 'Friends', indx: 'B', when: 'All the time', name: 'TinyBuddha'},
+	{gratitude: 'Able body', indx: 'C', when: 'Now and forever', name: 'TinyBuddha'},
+	{gratitude: 'Communication', indx: 'D', when: 'Every day', name: 'TinyBuddha'},
+	{gratitude: 'Sun', indx: 'E', when: 'All the time', name: 'HappyBuddha'},
+	{gratitude: 'Transportation', indx: 'F', when: 'Now and forever', name: 'HappyBuddha'},
+	{gratitude: 'Music', indx: 'G', when: 'Every day', name: 'HappyBuddha'},
+	{gratitude: 'A home', indx: 'H', when: 'All the time', name: 'HappyBuddha'},
+	{gratitude: 'Kind strangers', indx: 'I', when: 'Now and forever', name: 'GoldBuddha'},
+	{gratitude: 'Learning', indx: 'J', when: 'Every day', name: 'GoldBuddha'}
+	];
+
+	let myMembers = {
+	'TinyBuddha': {name: 'TinyBuddha', firstLogin: '1900', gratitudes: []},
+	'HappyBuddha': {name: 'HappyBuddha', firstLogin: '1800', gratitudes: []},
+	'GoldBuddha': {name: 'GoldBuddha', firstLogin: '1700', gratitudes: []}
+	};
+
+	for(let i of myGratitudes){
+		if(!i.path){
+			firebase.database().ref('test/myGratitudes')
+			.push(i)
+			.then((data)=> {
+				// let tempID = data.path.n[data.path.n.length-1];
+				let tempID = data.path.n.pop();
+				i.path = tempID;
+				myMembers[i.name].gratitudes.push(tempID);
+				
+			});
+		} else {
+			firebase.database().ref('test/myGratitudes').child(i.path)
+			.update(i)
+			.then((data)=> {
+				// Already referenced by member (hopefully)
+				// let tempID = data.path.n[data.path.n.length];
+				// myMembers[i.name].gratitudes.push(tempID);
+			});
+		}
+	}
+	for(let i in myMembers){
+		firebase.database().ref('test/myMembers').child(myMembers[i].name).update(myMembers[i]);
+	}
+	//////////////////////////////////////
+	// Add a New Row
+	/////////////////////////////////////
+	/* Someone added one more... let's add that item AND link its parent */
+
+	firebase.database().ref('test/myGratitudes').push({
+		gratitude: 'Laughter', 
+		indx: 'K', 
+		when: 'All the time', 
+		name: 'GoldBuddha'
+	})
+	.then((data)=> {
+		myMembers['GoldBuddha'].gratitudes.push(data.path.n.pop());
+		firebase.database().ref('test/myMembers')
+							.child('GoldBuddha/gratitudes')
+							.set(myMembers['GoldBuddha'].gratitudes);
+	});
+
+
+	//////////////////////////////////////
+	// Retreive Gratitudes... for just one member
+	/////////////////////////////////////
+	firebase.database().ref('test').off();
+	let arrayOfGraditudesForcurrentMember, 
+		currentMember = 'GoldBuddha';
+  	firebase.database().ref('test/myGratitudes')
+  		.orderByChild('name').equalTo(currentMember)
+	  	.once('value', function(data){
+	  		console.log('on value happened', data.val());
+	  		arrayOfGraditudesForcurrentMember = data.val();
+	  	});
+
+</script>
+</body>
+</html>

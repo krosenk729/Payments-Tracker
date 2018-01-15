@@ -22,7 +22,7 @@ let provider = new firebase.auth.GoogleAuthProvider(),
 // Listen for sign in / auth change
 */
 
-$('.bt-user-login').click(signUserIn);
+$('.bt-user-login, .placeholder-for-list a').click(signUserIn);
 $('.bt-user-logout').click(signUserOut);
 
 function signUserIn() {
@@ -59,7 +59,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 		$('.bt-user-login, .placeholder-for-list').hide();
 		$('.user-nm').text(u.name);
 		$('.user-img').attr('src', u.img);
-		$('.user-loggedin, .payments-list').show();
+		$('.user-loggedin, .payments-disp, .payments-form').show();
 	}
 	switchUItoSignedIn(currentUser);
 	onlyIfSignedIn(currentUser);
@@ -73,7 +73,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 		$('.bt-user-login, .placeholder-for-list').show();
 		$('.user-nm').text('');
 		$('.user-img').attr('src', '');
-		$('.user-loggedin, .payments-list').hide();
+		$('.user-loggedin, .payments-disp, .payments-form').hide();
 		$('.payments-items tr').remove(); // for safety
 	}
 	switchUItoSignedOut();
@@ -130,7 +130,7 @@ function sendNewPayment(){
 	};
 
 	// Send New Payment to Firebase (push)
-	updateFirebase(p, o, 'push').then(()=> clearForm(););
+	updateFirebase(p, o, 'push').then(()=>{ clearForm(); });
 }
 
 function clearForm(){

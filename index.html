@@ -12,9 +12,12 @@
 		<div class="jumbotron">
 			<h1>Your Recurring Payments</h1>
 			<button class="btn bt-user-login">Log In</button>
-			<div class="user-loggedin">
-				<img class="user-img" src="">
-				<h4 class="user-nm"></h4>
+			<div class="user-loggedin" style="display: none">
+				<div>
+					<img class="user-img" src="">
+					<h4 class="user-nm"></h4>
+					<button class="btn bt-user-logout">(Log Out)</button>
+				</div>
 				<div class="view-options">
 					<input type="radio" id="hidetotal-true" name="hidetotal">
 					<label for="hidetotal-true">Ignorance is Bliss</label>
@@ -27,13 +30,12 @@
 					<input type="radio" id="countdown-days" name="countdown-units" checked>
 					<label for="countdown-days">Count down in days</label>
 				</div>
-				<button class="btn bt-user-logout">Log Out</button>
 			</div>
 		</div>
-		<div class="placeholder-for-list card" style="display: none">
-			You must sign in to manage recurring payments
+		<div class="placeholder-for-list card center">
+			You must <a href="#">sign in</a> to manage recurring payments
 		</div>
-		<div class="card payments-disp">
+		<div class="card payments-disp" style="display: none">
 			<table class="table" id="payments-list">
 				<colgroup>
 					<col>
@@ -88,7 +90,7 @@
 							<div class="form-group">
 								<label class="sr-only">Store Name</label>
 								<input type="text" name="store" id="new-store" placeholder="Store Name">
-								<small class="desc-text text-muted">Store Name</small>
+								<small class="desc-text">Store Name</small>
 							</div>
 						</td>
 						<td>
@@ -115,10 +117,10 @@
 								 at 
 								<input type="time" step="60" name="firstEvntTime" id="new-firstEvntTime" value="12:00">
 							</div>
-							<small class="count-until text-muted">First charge date/time</small>
+							<small class="count-until">First charge date/time</small>
 						</td>
 						<td>
-							<button class="btn btn-add-new">Add</button>
+							<button class="btn btn-add-new">+ Add</button>
 						</td>
 					</tr>
 				</tbody>

@@ -1,78 +1,156 @@
+@import url("https://fonts.googleapis.com/css?family=Didact+Gothic|Francois+One");
+.center, .jumbotron .view-options label {
+  text-align: center; }
+
+.hideme {
+  visibility: none; }
+
+html, body {
+  height: 100%;
+  font-family: "Didact Gothic", sans-serif; }
+  html h1, html h2, html h3, html h4, html h5, html h6, body h1, body h2, body h3, body h4, body h5, body h6 {
+    font-family: "Francois One", sans-serif; }
+
 .container-fluid {
   background: url("https://raw.githubusercontent.com/krosenk729/Payments-Tracker/master/assets/images/background.png") top center;
-  background-size: cover; }
+  background-size: cover;
+  position: relative;
+  height: auto;
+  min-height: 100%; }
 
 .jumbotron {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 2em 1em;
-  background-color: rgba(32, 16, 154, 0.65);
-  color: #fefefe;
+  background-color: rgba(32, 16, 154, 0.88);
   margin-left: -15px;
   margin-right: -15px; }
-
-.user-img {
-  height: 2.4em;
-  border-radius: 50%; }
-
-.view-options {
-  padding: 1.8em; }
-  .view-options input {
-    position: absolute;
-    clip: rect(0, 0, 0, 0);
-    height: 1px;
-    width: 1px;
-    border: 0;
-    overflow: hidden; }
-    .view-options input:checked + label {
-      background-color: #20109a;
-      -webkit-box-shadow: none;
-      box-shadow: none; }
-  .view-options label {
-    float: left;
-    float: left;
-    display: inline-block;
-    width: 60px;
-    background-color: #2d208f;
-    color: #fefefe;
-    font-size: 14px;
-    font-weight: normal;
-    text-align: center;
-    text-shadow: none;
-    padding: 6px 14px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-    -webkit-transition: all 0.1s ease-in-out;
-    -moz-transition: all 0.1s ease-in-out;
-    -ms-transition: all 0.1s ease-in-out;
-    -o-transition: all 0.1s ease-in-out;
-    transition: all 0.1s ease-in-out; }
-    .view-options label:hover {
-      cursor: pointer; }
-    .view-options label:first-of-type {
-      border-radius: 4px 0 0 4px; }
-    .view-options label:last-of-type {
-      border-radius: 4px 0 0 4px; }
+  .jumbotron h1, .jumbotron div {
+    flex-basis: 50%;
+    color: #fefefe !important; }
+  .jumbotron .user-loggedin {
+    display: flex;
+    flex-direction: column;
+    align-items: end; }
+    .jumbotron .user-loggedin > div {
+      display: flex;
+      align-items: baseline;
+      align-content: baseline; }
+  .jumbotron .user-img {
+    height: 2.4em;
+    border-radius: 50%; }
+  .jumbotron .bt-user-logout {
+    padding: 0 .3em;
+    margin: 0 .3em;
+    color: #37c3be;
+    border: none; }
+    .jumbotron .bt-user-logout:hover {
+      background: none;
+      color: #fa4359; }
+  .jumbotron .view-options {
+    padding: 0;
+    border: 2px solid #3c2abf;
+    margin: .4em; }
+    .jumbotron .view-options input, .jumbotron .view-options .card select, .card .jumbotron .view-options select,
+    .jumbotron .view-options .card option,
+    .card .jumbotron .view-options option {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+      height: 1px;
+      width: 1px;
+      border: 0;
+      overflow: hidden; }
+      .jumbotron .view-options input:checked + label, .jumbotron .view-options .card select:checked + label, .card .jumbotron .view-options select:checked + label,
+      .jumbotron .view-options .card option:checked + label,
+      .card .jumbotron .view-options option:checked + label {
+        background-color: #3c2abf;
+        text-decoration: underline;
+        font-weight: bold;
+        -webkit-box-shadow: none;
+        box-shadow: none; }
+    .jumbotron .view-options label {
+      float: left;
+      display: inline-block;
+      min-width: 160px;
+      color: #fefefe;
+      font-size: 14px;
+      font-weight: normal;
+      text-shadow: none;
+      padding: .5em .7em .4em .7em;
+      height: 100%;
+      -webkit-transition: all 0.1s ease-in-out;
+      -moz-transition: all 0.1s ease-in-out;
+      -ms-transition: all 0.1s ease-in-out;
+      -o-transition: all 0.1s ease-in-out;
+      transition: all 0.1s ease-in-out; }
+      .jumbotron .view-options label:hover {
+        cursor: pointer;
+        text-decoration: underline;
+        font-weight: bold; }
 
 .card {
-  margin: 1.5em 0; }
+  margin: 1.5em 0;
+  padding: 1.5em 1em;
+  color: #fefefe;
+  background-color: rgba(32, 16, 154, 0.88); }
+  .card.placeholder-for-list {
+    padding: 2em;
+    text-align: center;
+    font-size: 1.5em; }
+    .card.placeholder-for-list a {
+      font-family: "Francois One", sans-serif;
+      font-weight: bold;
+      color: #37c3be;
+      -webkit-transition: all 0.1s ease-in-out;
+      -moz-transition: all 0.1s ease-in-out;
+      -ms-transition: all 0.1s ease-in-out;
+      -o-transition: all 0.1s ease-in-out;
+      transition: all 0.1s ease-in-out; }
+      .card.placeholder-for-list a:hover {
+        transform: scale(2); }
   .card small {
     display: block; }
-  .card input[name="cost"] {
-    width: 120px; }
-    .card input[name="cost"]:after {
-      display: block;
-      content: ''; }
-  .card input[name="desc"] {
-    width: 100%;
-    min-width: 120px; }
-  .card input[type="number"] {
-    -moz-appearance: textfield; }
-    .card input[type="number"]::-webkit-outer-spin-button, .card input[type="number"]::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0; }
+  .card table {
+    background-color: rgba(60, 42, 191, 0.44); }
+  .card input, .card select,
+  .card option {
+    background: none;
+    border: none;
+    color: #fefefe;
+    font-family: "Didact Gothic", sans-serif;
+    border-bottom: 2px solid #37c3be; }
+    .card input:focus, .card select:focus,
+    .card option:focus {
+      border-bottom: 2px solid #fa4359; }
+    .card input:invalid, .card select:invalid,
+    .card option:invalid {
+      color: 2px solid #fa4359; }
+    .card input[name="cost"], .card select[name="cost"],
+    .card option[name="cost"] {
+      width: 120px; }
+      .card input[name="cost"]:after, .card select[name="cost"]:after,
+      .card option[name="cost"]:after {
+        display: block;
+        content: ''; }
+    .card input[name="desc"], .card select[name="desc"],
+    .card option[name="desc"] {
+      width: 100%;
+      min-width: 120px; }
+    .card input[type="number"], .card select[type="number"],
+    .card option[type="number"] {
+      -moz-appearance: textfield; }
+      .card input[type="number"]::-webkit-outer-spin-button, .card select[type="number"]::-webkit-outer-spin-button,
+      .card option[type="number"]::-webkit-outer-spin-button, .card input[type="number"]::-webkit-inner-spin-button, .card select[type="number"]::-webkit-inner-spin-button,
+      .card option[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0; }
+    .card input[name="freqUnit"], .card select[name="freqUnit"],
+    .card option[name="freqUnit"] {
+      margin: 0 .2em; }
+  .card select,
+  .card option {
+    background-color: #20109a; }
 
 col:nth-child(1) {
   min-width: 170px; }
@@ -81,37 +159,21 @@ col:nth-child(2) {
 col:last-of-type {
   width: 70px; }
 
-table, form {
-  width: 100%; }
-
-input {
-  width: 150px; }
-
-small {
-  float: left; }
-
-input[type='number'] {
-  -moz-appearance: textfield; }
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0; }
-
-input[name='cost'] {
-  width: 100px; }
-
-col:nth-child(2), col:nth-child(3) {
-  width: 140px; }
-
-col:nth-child(5) {
-  width: 40px;
-  text-align: center; }
-
-h1, h2, h3, h4 {
-  color: #20109a; }
-
-body {
-  background: url("assets/css/bg.svg"); }
+button.btn {
+  background: none;
+  border: 4px solid #37c3be;
+  color: #fefefe;
+  font-size: 1.2em;
+  font-weight: bold; }
+  button.btn:hover {
+    background-color: #37c3be; }
+button.btn-add-new {
+  background: none;
+  border: 4px solid #fa4359;
+  color: #fefefe;
+  font-size: 1.2em;
+  font-weight: bold; }
+  button.btn-add-new:hover {
+    background-color: #fa4359; }
 
 /*# sourceMappingURL=style.css.map */
