@@ -55,7 +55,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     });
 
 	function switchUItoSignedIn(u){
-		$('.bt-user-login, .placeholder-for-list card').hide();
+		$('.bt-user-login, .placeholder-for-list').hide();
 		$('.user-nm').text(u.name);
 		$('.user-img').attr('src', u.img);
 		$('.user-loggedin, .payments-list').show();
@@ -69,7 +69,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     currentUser = undefined;
 
 	function switchUItoSignedOut(){
-		$('.bt-user-login, .placeholder-for-list card').show();
+		$('.bt-user-login, .placeholder-for-list').show();
 		$('.user-nm').text('');
 		$('.user-img').attr('src', '');
 		$('.user-loggedin, .payments-list').hide();
@@ -99,7 +99,7 @@ function onlyIfSignedIn(user){
 		});
 
 	firebase.database().ref('payments').orderByChild('user').equalTo(user.id)
-		.on('chid_removed', function(data){
+		.on('child_removed', function(data){
 			unshowPayments(data);
 		});
 
