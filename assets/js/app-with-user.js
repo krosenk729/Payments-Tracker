@@ -14,7 +14,8 @@ firebase.initializeApp(config);
 let provider = new firebase.auth.GoogleAuthProvider(),
 	currentUser = '',
 	seeTotals = true,
-	countUnit = 'min';
+	countUnit = 'min',
+	futureYear = '2020-01-01';
 
 /* Things That Happen When Not Signed In
 // User can sign in
@@ -68,10 +69,10 @@ firebase.auth().onAuthStateChanged(function(user) {
     currentUser = undefined;
 
 	function switchUItoSignedOut(){
-		$('.bt-user-login, .placeholder-for-list card').hide();
+		$('.bt-user-login, .placeholder-for-list card').show();
 		$('.user-nm').text('');
 		$('.user-img').attr('src', '');
-		$('.user-loggedin, .payments-list').show();
+		$('.user-loggedin, .payments-list').hide();
 		$('.payments-items tr').remove(); // for safety
 	}
 	switchUItoSignedOut();
@@ -182,7 +183,7 @@ function showPayments(data){
 		pfreqUnit = data.val().freqUnit,
 		pfirstEvntDay = data.val().firstEvntDay,
 		pfirstEvntTime = data.val().firstEvntTime,
-		pcostto2020 = countdownTo(pfirstEvntDay, pfirstEvntTime, '2020-01-01', pfreqUnit)*pcost,
+		pcosttoFuture = countdownTo(pfirstEvntDay, pfirstEvntTime, futureYear, pfreqUnit)*pcost,
 		pcounttonext = Math.abs(countdownTo(pfirstEvntDay, pfirstEvntTime, '', 'days')) + ' days'; 
 		//alternative option of passing in pfreqUnit here
 	
@@ -196,7 +197,7 @@ function showPayments(data){
 	<td>
 		<label class="sr-only">Cost of Recurring Payment</label>
 		$<input type="number" name="cost" value="${pcost}">
-		<small class="count-until text-muted">Total: $${pcostto2020} by 2020</small>
+		<small class="count-until text-muted">Total: $${pcosttoFuture} by 2020</small>
 	</td>
 	<td>
 		<label>Every</label>
