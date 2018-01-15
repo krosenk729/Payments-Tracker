@@ -8,14 +8,13 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="jumbotron">
 			<h1>Your Recurring Payments</h1>
 			<button class="btn bt-user-login">Log In</button>
 			<div class="user-loggedin">
-				<h4 class="user-nm"></h4>
-				<button class="btn bt-user-logout">Log Out</button>
 				<img class="user-img" src="">
+				<h4 class="user-nm"></h4>
 				<div class="view-options">
 					<input type="radio" id="hidetotal-true" name="hidetotal">
 					<label for="hidetotal-true">Ignorance is Bliss</label>
@@ -28,6 +27,7 @@
 					<input type="radio" id="countdown-days" name="countdown-units" checked>
 					<label for="countdown-days">Count down in days</label>
 				</div>
+				<button class="btn bt-user-logout">Log Out</button>
 			</div>
 		</div>
 		<div class="placeholder-for-list card" style="display: none">
@@ -52,41 +52,7 @@
 					</tr>
 				</thead>
 				<tbody class="payments-items">
-					<!-- <tr data-id="234234">
-						<td>
-							<label class="sr-only">Description of Payment for Store</label>
-							<input type="text" name="desc" value="Prime Membership">
-							<small class="desc-text text-muted">Store: Amazon</small>
-						</td>
-						<td>
-							<label class="sr-only">Cost of Recurring Payment</label>
-							$<input type="number" name="cost" value="50">
-							<small class="count-until text-muted">Totals $100 by 2020</small>
-						</td>
-						<td>
-							<div>
-								<label>Every</label>
-								<select name="freqUnit" value="Month">
-									<option data-unit="Day">Day</option>
-									<option data-unit="Week">Week</option>
-									<option data-unit="Month">Month</option>
-									<option data-unit="Year">Year</option>
-								</select>
-							<div>
-						</td>
-						<td>
-							<div>
-								<label class="sr-only">Next Charge Date and Time</label>
-								<input type="date" name="firstEvntDay" min="2018-01-01" max="2020-01-01">
-								 at 
-								<input type="time" step="60" name="firstEvntTime" value="">
-							</div>
-							<small class="count-until text-muted">Next charge in <span></span> minutes</small>
-						</td>
-						<td>
-							<button class="btn btn-remove-row">Remove</button>
-						</td>
-					</tr> -->
+					<!-- rows will show up here -->
 				</tbody>
 				<tfoot>
 					<tr class="payments-totals">
