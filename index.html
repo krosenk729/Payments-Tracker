@@ -89,19 +89,19 @@
 						<td>
 							<div class="form-group">
 								<label class="sr-only">Store Name</label>
-								<input type="text" name="store" id="new-store" placeholder="Store Name">
+								<input type="text" name="store" id="new-store" placeholder="Store Name" required>
 								<small class="desc-text">Store Name</small>
 							</div>
 						</td>
 						<td>
 							<div class="form-group">
 								<label class="sr-only">Recurring Cost</label>
-								$<input type="number" name="cost" id="new-cost" placeholder="50">
+								$<input type="number" name="cost" id="new-cost" placeholder="50" required>
 							</div>
 						</td>
 						<td>
 							<div class="form-group form-inline">
-								<label>Every</label>
+								<label>Every </label>
 								<select name="freqUnit" id="new-freqUnit">
 									<option>Day</option>
 									<option>Week</option>
@@ -113,9 +113,9 @@
 						<td>
 							<div>
 								<label class="sr-only">Next Charge Date and Time</label>
-								<input type="date" name="firstEvntDay" id="new-firstEvntDay" min="2018-01-01" max="2020-01-01" value="2018-06-06">
+								<input type="date" name="firstEvntDay" id="new-firstEvntDay" min="2018-01-01" max="2020-01-01" value="2018-06-06" required>
 								 at 
-								<input type="time" step="60" name="firstEvntTime" id="new-firstEvntTime" value="12:00">
+								<input type="time" step="60" name="firstEvntTime" id="new-firstEvntTime" value="12:00" required>
 							</div>
 							<small class="count-until">First charge date/time</small>
 						</td>

@@ -39,6 +39,7 @@ html, body {
       align-content: baseline; }
   .jumbotron .user-img {
     height: 2.4em;
+    margin: 0 .5em;
     border-radius: 50%; }
   .jumbotron .bt-user-logout {
     padding: 0 .3em;
@@ -113,6 +114,8 @@ html, body {
     display: block; }
   .card table {
     background-color: rgba(60, 42, 191, 0.44); }
+    .card table * {
+      line-height: 2.5em; }
   .card input, .card select,
   .card option {
     background: none;
@@ -167,13 +170,13 @@ button.btn {
   font-weight: bold; }
   button.btn:hover {
     background-color: #37c3be; }
-button.btn-add-new {
+button.btn-remove-row {
   background: none;
   border: 4px solid #fa4359;
   color: #fefefe;
   font-size: 1.2em;
   font-weight: bold; }
-  button.btn-add-new:hover {
+  button.btn-remove-row:hover {
     background-color: #fa4359; }
 
 /*# sourceMappingURL=style.css.map */

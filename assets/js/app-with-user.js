@@ -108,7 +108,7 @@ function onlyIfSignedIn(user){
 
 	$('.btn-add-new').on('click', sendNewPayment);
 	$('.payments-items').on('change', 'input, select', updatePayment);
-	$('.payments-items').on('click', 'btn-remove-row', delPayment);
+	$('.payments-items').on('click', '.btn-remove-row', delPayment);
 	// add listeners to slide between days / minute countdown 
 	// add listeners to slide between showing and hiding total cost by 2020
 }
@@ -203,7 +203,7 @@ function showPayments(data){
 		<small class="count-until text-muted">Total: $${pcosttoFuture} by 2020</small>
 	</td>
 	<td>
-		<label>Every</label>
+		<label>Every </label>
 			<select name="freqUnit" value="${pfreqUnit}">
 			<option data-unit="Day" ${pfreqUnit==="Day" ? 'selected' : ''}>Day</option>
 			<option data-unit="Week" ${pfreqUnit==="Week" ? 'selected' : ''}>Week</option>
