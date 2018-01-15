@@ -93,12 +93,12 @@ function onlyIfSignedIn(user){
 			showPayments(data);
 		});
 
-	firebase.database().ref('payments').orderByChild('user').equalTo(user.uid)
+	firebase.database().ref('payments').orderByChild('user').equalTo(user.id)
 		.on('child_added', function(data){
 			showPayments(data);
 		});
 
-	firebase.database().ref('payments').orderByChild('user').equalTo(user.uid)
+	firebase.database().ref('payments').orderByChild('user').equalTo(user.id)
 		.on('chid_removed', function(data){
 			unshowPayments(data);
 		});
