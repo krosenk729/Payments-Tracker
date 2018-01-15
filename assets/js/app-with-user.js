@@ -36,6 +36,7 @@ function signUserIn() {
 function signUserOut(){
 	firebase.auth().signOut()
 	.then(function(){
+		clearForm();
 		firebase.database().ref('payments').off('value');
 		firebase.database().ref('payments').off('child_added');
 		firebase.database().ref('payments').off('child_changed');
@@ -129,8 +130,10 @@ function sendNewPayment(){
 	};
 
 	// Send New Payment to Firebase (push)
-	updateFirebase(p, o, 'push');
+	updateFirebase(p, o, 'push').then(()=> clearForm(););
+}
 
+function clearForm(){
 	//Reset Form
 	$('#new-store, #new-cost').val('');
 	$('#new-firstEvntTime').val('12:00');

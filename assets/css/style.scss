@@ -1,11 +1,149 @@
 $color-tq: #37c3be;
 $color-drpurp: #20109a;
+$color-drpurp-opc: rgba(32, 16, 154, .65);
 $color-mdpurp: #2d208f;
 $color-ltpurp: #3c2abf;
 $color-pinkish: #fa4359;
 $color-whitish: #fefefe;
 
+@mixin trans($which: all, $time:0.1s, $opt: ease-in-out){
+	-webkit-transition: $which $time $opt;
+	-moz-transition: 	$which $time $opt;
+	-ms-transition: 	$which $time $opt;
+	-o-transition: 		$which $time $opt;
+	transition: 		$which $time $opt;
+}
+
 //PAGE SETUP
+.container-fluid{
+	background: url("https://raw.githubusercontent.com/krosenk729/Payments-Tracker/master/assets/images/background.png") top center;
+	background-size: cover;
+}
+
+.jumbotron{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 2em 1em;
+	background-color: $color-drpurp-opc;
+	color: $color-whitish;
+	margin-left: -15px;
+	margin-right: -15px;
+}
+
+.user-img{
+	height: 2.4em;
+	border-radius: 50%;
+}
+
+.view-options{
+	padding: 1.8em;
+
+	input{
+		position: absolute;
+		clip: rect(0, 0, 0, 0);
+	    height: 1px;
+	    width: 1px;
+	    border: 0;
+	    overflow: hidden;
+
+	    &:checked + label{
+			background-color: $color-drpurp;
+			-webkit-box-shadow: none;
+			box-shadow: none;
+	    }
+	}
+
+	label{
+		float: left;
+		float: left;
+		display: inline-block;
+		width: 60px;
+		background-color: $color-mdpurp;
+		color: $color-whitish;
+		font-size: 14px;
+		font-weight: normal;
+		text-align: center;
+		text-shadow: none;
+		padding: 6px 14px;
+		border: 1px solid rgba(0, 0, 0, 0.2);
+		-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+		box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+		@include trans(all, 0.1s, ease-in-out);
+
+		&:hover{
+			cursor: pointer;
+		}
+		&:first-of-type {
+			//pill corners
+			border-radius: 4px 0 0 4px;
+		}
+		&:last-of-type {
+			//pill corners
+			border-radius: 4px 0 0 4px;
+		}
+	}
+}
+
+.card{
+	margin: 1.5em 0;
+
+	small{
+		display: block;
+	}
+
+	input{
+		&[name="cost"]{
+			width: 120px;
+			&:after{
+				display: block;
+				content: '';
+			}
+		}
+		&[name="desc"]{
+			width: 100%;
+			min-width: 120px;
+		}
+		&[type="number"]{
+			-moz-appearance: textfield;
+
+			&::-webkit-outer-spin-button,
+			&::-webkit-inner-spin-button{
+				-webkit-appearance: none;
+				margin: 0;
+			}
+		}
+	}
+
+}
+
+
+col{
+	&:nth-child(1){
+		min-width: 170px;
+	}
+	&:nth-child(2){
+		width: 170px;
+	}
+	&:last-of-type{
+		width: 70px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 table, form{
 	width: 100%;
