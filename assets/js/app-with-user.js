@@ -261,7 +261,7 @@ function recheckCountdown(countUnit = 'min'){
 			tfirstEvntDay = $(trow).find('input[name="firstEvntDay"]').val(),
 			tfirstEvntTime = $(trow).find('input[name="firstEvntTime"]').val();
 		if(moment().isAfter(tfirstEvntDay + ' ' + tfirstEvntTime)){
-			let tnewDate = moment(tfirstEvntDay + ' ' + tfirstEvntTime).add(1, $(trow).find('select[name="freqUnit"]').value);
+			let tnewDate = moment(tfirstEvntDay + ' ' + tfirstEvntTime).add(1, $(trow).find('select[name="freqUnit"]').val());
 			$(trow).find('input[name="firstEvntDay"]').val(tnewDate.format('YYYY-MM-DD'));
 			$(trow).find('input[name="firstEvntTime"]').val(tnewDate.format('HH:mm')).trigger('change');
 
