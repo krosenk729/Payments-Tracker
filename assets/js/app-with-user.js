@@ -14,7 +14,7 @@ firebase.initializeApp(config);
 let provider = new firebase.auth.GoogleAuthProvider(),
 	currentUser = '',
 	seeTotals = true,
-	countUnit = 'min',
+	countUnit = 'days',
 	futureYear = '2020-01-01';
 
 /* Things That Happen When Not Signed In
@@ -176,6 +176,7 @@ function updateFirebase(path = 'payments', o = {}, t = 'push'){
 	}
 }
 
+
 /* Function to update UI with a new payment row when a firebase child is added */
 function showPayments(data){
 	let ppath = data.ge.path.n[1],
@@ -187,24 +188,24 @@ function showPayments(data){
 		pfirstEvntDay = data.val().firstEvntDay,
 		pfirstEvntTime = data.val().firstEvntTime,
 		pcosttoFuture = countdownTo(pfirstEvntDay, pfirstEvntTime, futureYear, pfreqUnit)*pcost,
-		pcounttonext = Math.abs(countdownTo(pfirstEvntDay, pfirstEvntTime, '', 'days')) + ' days'; 
+		pcounttonext = Math.abs(countdownTo(pfirstEvntDay, pfirstEvntTime, '', countUnit)) + ' ' + countUnit; 
 		//alternative option of passing in pfreqUnit here
 	
 	let pfragment = 
 	`<tr data-id="${ppath}">
 	<td>
 		<label class="sr-only">Description of Payment for Store</label>
-		<input type="text" name="desc" value="${pdesc || pstore}">
-		<small class="desc-text text-muted">Store: ${pstore}</small>
+		<input type="text" name="desc" value="${pdesc || pstore}" required>
+		<small class="desc-text">Store: ${pstore}</small>
 	</td>
 	<td>
 		<label class="sr-only">Cost of Recurring Payment</label>
-		$<input type="number" name="cost" value="${pcost}">
-		<small class="count-until text-muted">Total: $${pcosttoFuture} by 2020</small>
+		$<input type="number" name="cost" value="${pcost}" required>
+		<small class="count-until">Total: $${pcosttoFuture} by 2020</small>
 	</td>
 	<td>
 		<label>Every </label>
-			<select name="freqUnit" value="${pfreqUnit}">
+			<select name="freqUnit" value="${pfreqUnit}" required>
 			<option data-unit="Day" ${pfreqUnit==="Day" ? 'selected' : ''}>Day</option>
 			<option data-unit="Week" ${pfreqUnit==="Week" ? 'selected' : ''}>Week</option>
 			<option data-unit="Month" ${pfreqUnit==="Month" ? 'selected' : ''}>Month</option>
@@ -213,10 +214,10 @@ function showPayments(data){
 	</td>
 	<td>
 		<label class="sr-only">Next Charge Date and Time</label>
-		<input type="date" name="firstEvntDay" min="2018-01-01" max="2020-01-01" value="${pfirstEvntDay}">
+		<input type="date" name="firstEvntDay" min="2018-01-01" max="2020-01-01" value="${pfirstEvntDay}" required>
 		at 
-		<input type="time" step="60" name="firstEvntTime" value="${pfirstEvntTime}">
-		<small class="count-until text-muted">Next charge in ${pcounttonext}</small>
+		<input type="time" step="60" name="firstEvntTime" value="${pfirstEvntTime}" required>
+		<small class="count-until">Next charge in ${pcounttonext}</small>
 	</td>
 	<td>
 		<button class="btn btn-remove-row">Remove</button>
@@ -228,17 +229,44 @@ function showPayments(data){
 	} else {
 		$('.payments-items').append(pfragment);
 	}
+
+	calcTotal();
+}
+
+function calcTotal(){
+	let total = 0,
+		all = $('.payments-items input[name="cost"]');
+	for(let i=0, x = all.length; i < x; i++){
+		total += Number(all[i].value);
+	}
+	$('.payments-totals td:nth-child(2)').text(total);
 }
 
 function unshowPayments(data){
 	let ppath = data.ge.path.n[1],
 		prow = $('tbody').find(`tr[data-id="${ppath}"]`);
 	prow.remove();
+	calcTotal();
 }
 
 /* Function to check / update countdown times */
-function recheckCountdown(){
-
+function recheckCountdown(countUnit = 'min'){
+	let all = $('.payments-items tr');
+	for(let i = 0, x=all.length; i < x; i++){
+		let tfirstEvntDay = $(i).find('input[name="firstEvntDay"]').val(),
+			tfirstEvntTime = $(i).find('input[name="firstEvntTime"]').val();
+		if(moment().isAfter(tfirstEvntTime + ' ' + tfirstEvntDay)){
+			let tnewDate = moment(tfirstEvntTime + ' ' + tfirstEvntDay)
+				.add(1, $(i).find('select[name="freqUnit"]').value);
+			$(i).find('input[name="firstEvntDay"]')
+				.val(tnewDate.format('YYYY-MM-DD'));
+			$(i).find('input[name="firstEvntTime"]')
+				.val(tnewDate.date('HH:MM'))
+				.trigger('change');
+		} else {
+			$(i).find('.count-until').text('Next charge in '+ Math.abs(countdownTo(tfirstEvntDay, tfirstEvntTime, '', countUnit)) + ' ' + countUnit);
+		}
+	}
 }
 
 /* Function to calculate the time between a day/time */
