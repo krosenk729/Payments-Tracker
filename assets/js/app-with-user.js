@@ -252,17 +252,17 @@ function unshowPayments(data){
 }
 
 /* Function to check / update countdown times */
-function recheckCountdown(countUnit = 'min'){
+function recheckCountdown(countUnit){
 
 	let all = $('.payments-items tr');
-
+	// goal: get the firstEvntDay, firstEventTime and tr
 	for(let i = 0, x=all.length; i < x; i++){
-
 		let trow = all[i],
 			tfirstEvntDay = $(trow).find('input[name="firstEvntDay"]').val(),
-			tfirstEvntTime = $(trow).find('input[name="firstEvntTime"]').val();
+			tfirstEvntTime = $(trow).find('input[name="firstEvntTime"]').val(),
+			tdiff = countdownTo(tfirstEvntDay, tfirstEvntTime, '', 'seconds');
 
-		if(moment(new Date()).isAfter(tfirstEvntDay + ' ' + tfirstEvntTime)){
+		if(tdiff > 0){
 			let tnewDate = moment(tfirstEvntDay + ' ' + tfirstEvntTime).add(1, $(trow).find('select[name="freqUnit"]').val());
 			$(trow).find('input[name="firstEvntDay"]').val(tnewDate.format('YYYY-MM-DD'));
 			$(trow).find('input[name="firstEvntTime"]').val(tnewDate.format('HH:mm')).trigger('change');
@@ -275,9 +275,8 @@ function recheckCountdown(countUnit = 'min'){
 
 /* Function to calculate the time between a day/time */
 /* and another date (if provided) in specified units */
-function countdownTo( nextEventDay, nextEventTime, untilDate = '', unit = 'days' ){
-	return moment((untilDate ? moment(untilDate) : moment()))
-	.diff( nextEventDay + ' ' + nextEventTime , unit);
+function countdownTo( nextEventDay, nextEventTime, untilDate, unit = 'days'){
+	return moment(untilDate || new Date()).diff( nextEventDay + ' ' + nextEventTime , unit);
 }
 
 function formatNumber(n){
