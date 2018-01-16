@@ -200,7 +200,7 @@ function showPayments(data){
 	<td>
 		<label class="sr-only">Cost of Recurring Payment</label>
 		$<input type="number" name="cost" value="${pcost}" required>
-		<small class="count-until">Total: $${pcosttoFuture} by 2020</small>
+		<small class="cost-until">Total: $${pcosttoFuture} by 2020</small>
 	</td>
 	<td>
 		<label>Every </label>
