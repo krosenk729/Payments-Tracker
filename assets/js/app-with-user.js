@@ -112,7 +112,7 @@ function onlyIfSignedIn(user){
 
 
 	$('#hidetotal-true').on('change', function(){
-		$('#should-hide-money').html('.show-money{visibililty: none !important}');
+		$('#should-hide-money').html('.show-money{visibility: hidden !important}');
 	});
 	$('#hidetotal-false').on('change', function(){
 		$('#should-hide-money').empty();
@@ -194,7 +194,7 @@ function showPayments(data){
 		pfirstEvntDay = data.val().firstEvntDay,
 		pfirstEvntTime = data.val().firstEvntTime,
 		pcosttoFuture = formatNumber((countdownTo(pfirstEvntDay, pfirstEvntTime, futureYear, pfreqUnit)+1)*pcost),
-		pcounttonext = formatNumber(Math.abs(countdownTo(pfirstEvntDay, pfirstEvntTime, '', countUnit)) + ' ' + countUnit); 
+		pcounttonext = formatNumber(Math.abs(countdownTo(pfirstEvntDay, pfirstEvntTime, '', countUnit)) + ' ' + countUnit; 
 		//alternative option of passing in pfreqUnit here
 	
 	let pfragment = 
@@ -233,7 +233,6 @@ function showPayments(data){
 	} else {
 		$('.payments-items').append(pfragment);
 	}
-
 	calcTotal();
 }
 
