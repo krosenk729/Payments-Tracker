@@ -77,7 +77,6 @@ firebase.auth().onAuthStateChanged(function(user) {
 		$('.payments-items tr').remove(); // for safety
 	}
 	switchUItoSignedOut();
-
   }
 });
 
@@ -104,7 +103,7 @@ function onlyIfSignedIn(user){
 			unshowPayments(data);
 		});
 
-	countdownTo(); // need to work on -- add interval to this
+	currentUser.timer = setInterval(recheckCountdown, countUnit === 'days' ? 86400000 : 60000 );
 
 	$('.btn-add-new').on('click', sendNewPayment);
 	$('.payments-items').on('change', 'input, select', updatePayment);
@@ -231,6 +230,7 @@ function showPayments(data){
 	}
 
 	calcTotal();
+	recheckCountdown();
 }
 
 /* Function to calculate the total cost of all recurring payments */
