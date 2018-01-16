@@ -194,7 +194,7 @@ function showPayments(data){
 		pfirstEvntDay = data.val().firstEvntDay,
 		pfirstEvntTime = data.val().firstEvntTime,
 		pcosttoFuture = formatNumber((countdownTo(pfirstEvntDay, pfirstEvntTime, futureYear, pfreqUnit)+1)*pcost),
-		pcounttonext = formatNumber(Math.abs(countdownTo(pfirstEvntDay, pfirstEvntTime, '', countUnit)) + ' ' + countUnit; 
+		pcounttonext = formatNumber(Math.abs(countdownTo(pfirstEvntDay, pfirstEvntTime, '', countUnit))) + ' ' + countUnit; 
 		//alternative option of passing in pfreqUnit here
 	
 	let pfragment = 
@@ -273,7 +273,9 @@ function recheckCountdown(countUnit){
 			$(trow).find('input[name="firstEvntTime"]').val(tnewDate.format('HH:mm')).trigger('change');
 
 		} else {
-			$(trow).find('.count-until').text('Next charge in '+ Math.abs(countdownTo(tfirstEvntDay, tfirstEvntTime, '', countUnit)) + ' ' + countUnit);
+			$(trow).find('.count-until').text('Next charge in '
+				+ Math.abs(countdownTo(tfirstEvntDay, tfirstEvntTime, '', countUnit))
+				+ ' ' + countUnit);
 		}
 	}
 }
