@@ -14,6 +14,7 @@ firebase.initializeApp(config);
 let provider = new firebase.auth.GoogleAuthProvider(),
 	currentUser = '',
 	seeTotals = true,
+	recheck = {},
 	countUnit = 'days',
 	futureYear = '2020-01-01';
 
@@ -103,13 +104,20 @@ function onlyIfSignedIn(user){
 			unshowPayments(data);
 		});
 
-	currentUser.timer = setInterval(recheckCountdown, countUnit === 'days' ? 86400000 : 60000 );
+	recheck = setInterval(recheckCountdown, countUnit === 'days' ? 86400000 : 60000);
+	$('#')
 
 	$('.btn-add-new').on('click', sendNewPayment);
 	$('.payments-items').on('change', 'input, select', updatePayment);
 	$('.payments-items').on('click', '.btn-remove-row', delPayment);
-	// add listeners to slide between days / minute countdown 
-	// add listeners to slide between showing and hiding total cost by 2020
+
+
+	$('#hidetotal-true').on('change', function(){
+		$('#should-hide-money').html('.show-money{visibililty: none !important}');
+	});
+	$('#hidetotal-false').on('change', function(){
+		$('#should-hide-money').empty();
+	});
 }
 
 /* Function to update Firebase when a payment is added and clear form out */
@@ -207,7 +215,7 @@ function showPayments(data){
 			<option value="month" ${pfreqUnit==="month" ? 'selected' : ''}>Monthly</option>
 			<option value="year" ${pfreqUnit==="year" ? 'selected' : ''}>Yearly</option>
 		</select>
-		<small class="cost-until">Total: $${pcosttoFuture} by 2020</small>
+		<small class="cost-until show-money">Total: $${pcosttoFuture} by 2020</small>
 	</td>
 	<td>
 		<label class="sr-only">Next Charge Date and Time</label>
@@ -228,7 +236,6 @@ function showPayments(data){
 	}
 
 	calcTotal();
-	recheckCountdown();
 }
 
 /* Function to calculate the total cost of all recurring payments */
