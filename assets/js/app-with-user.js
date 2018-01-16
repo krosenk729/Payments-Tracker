@@ -137,7 +137,7 @@ function clearForm(){
 	$('#new-store, #new-cost').val('');
 	$('#new-firstEvntTime').val('12:00');
 	$('#new-firstEvntDay').val( moment().format('YYYY-MM-DD') );
-	$('#new-freqUnit').val('Year');
+	$('#new-freqUnit').val('year');
 }
 
 /* Function to update only one field when inputs updated */
@@ -201,15 +201,12 @@ function showPayments(data){
 		<label class="sr-only">Cost of Recurring Payment</label>
 		$<input type="number" name="cost" value="${pcost}" required>
 		<small class="cost-until">Total: $${pcosttoFuture} by 2020</small>
-	</td>
-	<td>
-		<label>Every </label>
-			<select name="freqUnit" value="${pfreqUnit}" required>
-				<option value="hour" ${pfreqUnit==="day" ? 'selected' : ''}>Hourly</option>
-				<option value="day" ${pfreqUnit==="day" ? 'selected' : ''}>Daily</option>
-				<option value="week" ${pfreqUnit==="Week" ? 'selected' : ''}>Weekly</option>
-				<option value="month" ${pfreqUnit==="Month" ? 'selected' : ''}>Monthly</option>
-				<option value="year" selected ${pfreqUnit==="Year" ? 'selected' : ''}>Yearly</option>
+		<select name="freqUnit" value="${pfreqUnit}" required>
+			<option value="hour" ${pfreqUnit==="hour" ? 'selected' : ''}>Hourly</option>
+			<option value="day" ${pfreqUnit==="day" ? 'selected' : ''}>Daily</option>
+			<option value="week" ${pfreqUnit==="week" ? 'selected' : ''}>Weekly</option>
+			<option value="month" ${pfreqUnit==="month" ? 'selected' : ''}>Monthly</option>
+			<option value="year" selected ${pfreqUnit==="year" ? 'selected' : ''}>Yearly</option>
 		</select>
 	</td>
 	<td>
