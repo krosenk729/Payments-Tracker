@@ -187,7 +187,7 @@ function showPayments(data){
 		pfreqUnit = data.val().freqUnit,
 		pfirstEvntDay = data.val().firstEvntDay,
 		pfirstEvntTime = data.val().firstEvntTime,
-		pcosttoFuture = countdownTo(pfirstEvntDay, pfirstEvntTime, futureYear, pfreqUnit)*pcost,
+		pcosttoFuture = (countdownTo(pfirstEvntDay, pfirstEvntTime, futureYear, pfreqUnit)+1)*pcost,
 		pcounttonext = Math.abs(countdownTo(pfirstEvntDay, pfirstEvntTime, '', countUnit)) + ' ' + countUnit; 
 		//alternative option of passing in pfreqUnit here
 	
@@ -233,15 +233,19 @@ function showPayments(data){
 	calcTotal();
 }
 
+/* Function to calculate the total cost of all recurring payments */
 function calcTotal(){
 	let total = 0,
 		all = $('.payments-items input[name="cost"]');
+
 	for(let i=0, x = all.length; i < x; i++){
 		total += Number(all[i].value);
 	}
+
 	$('.payments-totals td:nth-child(2)').text(total);
 }
 
+/* Function to Delete a Payment Row From the UI (opposite of showPayment) */
 function unshowPayments(data){
 	let ppath = data.ge.path.n[1],
 		prow = $('tbody').find(`tr[data-id="${ppath}"]`);
@@ -253,18 +257,16 @@ function unshowPayments(data){
 function recheckCountdown(countUnit = 'min'){
 	let all = $('.payments-items tr');
 	for(let i = 0, x=all.length; i < x; i++){
-		let tfirstEvntDay = $(i).find('input[name="firstEvntDay"]').val(),
-			tfirstEvntTime = $(i).find('input[name="firstEvntTime"]').val();
-		if(moment().isAfter(tfirstEvntTime + ' ' + tfirstEvntDay)){
-			let tnewDate = moment(tfirstEvntTime + ' ' + tfirstEvntDay)
-				.add(1, $(i).find('select[name="freqUnit"]').value);
-			$(i).find('input[name="firstEvntDay"]')
-				.val(tnewDate.format('YYYY-MM-DD'));
-			$(i).find('input[name="firstEvntTime"]')
-				.val(tnewDate.date('HH:MM'))
-				.trigger('change');
+		let trow = all[i],
+			tfirstEvntDay = $(trow).find('input[name="firstEvntDay"]').val(),
+			tfirstEvntTime = $(trow).find('input[name="firstEvntTime"]').val();
+		if(moment().isAfter(tfirstEvntDay + ' ' + tfirstEvntTime)){
+			let tnewDate = moment(tfirstEvntDay + ' ' + tfirstEvntTime).add(1, $(trow).find('select[name="freqUnit"]').value);
+			$(trow).find('input[name="firstEvntDay"]').val(tnewDate.format('YYYY-MM-DD'));
+			$(trow).find('input[name="firstEvntTime"]').val(tnewDate.format('HH:mm')).trigger('change');
+
 		} else {
-			$(i).find('.count-until').text('Next charge in '+ Math.abs(countdownTo(tfirstEvntDay, tfirstEvntTime, '', countUnit)) + ' ' + countUnit);
+			$(trow).find('.count-until').text('Next charge in '+ Math.abs(countdownTo(tfirstEvntDay, tfirstEvntTime, '', countUnit)) + ' ' + countUnit);
 		}
 	}
 }
