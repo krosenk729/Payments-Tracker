@@ -104,8 +104,7 @@ function onlyIfSignedIn(user){
 			unshowPayments(data);
 		});
 
-	recheck = setInterval(recheckCountdown, countUnit === 'days' ? 86400000 : 60000);
-	$('#')
+	recheck = setInterval(recheckCountdown, countUnit === 'days' ? 86400000 : 60000 );
 
 	$('.btn-add-new').on('click', sendNewPayment);
 	$('.payments-items').on('change', 'input, select', updatePayment);
