@@ -269,10 +269,10 @@ function recheckCountdown(countUnit){
 
 		if(tdiff > 0){
 			let tnewDate = moment(tfirstEvntDay + ' ' + tfirstEvntTime).add(1, $(trow).find('select[name="freqUnit"]').val()),
-				p = 'payments/'+ trow.attributes['data-id'],
+				p = 'payments/'+ trow.dataset.id,
 				o = {};
-				o[firstEvntDay] = tnewDate.format('YYYY-MM-DD');
-				o[firstEvntTime] = tnewDate.format('HH:mm');
+				o.firstEvntDay = tnewDate.format('YYYY-MM-DD');
+				o.firstEvntTime = tnewDate.format('HH:mm');
 			updateFirebase(p, o, 'update');
 		} else {
 			$(trow).find('.count-until').text('Next charge in '
