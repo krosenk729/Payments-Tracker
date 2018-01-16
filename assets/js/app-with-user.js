@@ -258,9 +258,9 @@ function unshowPayments(data){
 
 /* Function to check / update countdown times */
 function recheckCountdown(countUnit){
-
+	console.log('countunit', countUnit);
 	let all = $('.payments-items tr');
-	// goal: get the firstEvntDay, firstEventTime and tr
+	// goal: get the firstEvntDay, firstEvntTime and tr
 	for(let i = 0, x=all.length; i < x; i++){
 		let trow = all[i],
 			tfirstEvntDay = $(trow).find('input[name="firstEvntDay"]').val(),
@@ -268,10 +268,12 @@ function recheckCountdown(countUnit){
 			tdiff = countdownTo(tfirstEvntDay, tfirstEvntTime, '', 'seconds');
 
 		if(tdiff > 0){
-			let tnewDate = moment(tfirstEvntDay + ' ' + tfirstEvntTime).add(1, $(trow).find('select[name="freqUnit"]').val());
-			$(trow).find('input[name="firstEvntDay"]').val(tnewDate.format('YYYY-MM-DD'));
-			$(trow).find('input[name="firstEvntTime"]').val(tnewDate.format('HH:mm')).trigger('change');
-
+			let tnewDate = moment(tfirstEvntDay + ' ' + tfirstEvntTime).add(1, $(trow).find('select[name="freqUnit"]').val()),
+				p = 'payments/'+ trow.attributes['data-id'],
+				o = {};
+				o[firstEvntDay] = tnewDate.format('YYYY-MM-DD');
+				o[firstEvntTime] = tnewDate.format('HH:mm');
+			updateFirebase(p, o, 'update');
 		} else {
 			$(trow).find('.count-until').text('Next charge in '
 				+ Math.abs(countdownTo(tfirstEvntDay, tfirstEvntTime, '', countUnit))
