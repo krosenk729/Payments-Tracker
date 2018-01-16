@@ -47,7 +47,7 @@ function signUserOut(){
 firebase.auth().onAuthStateChanged(function(user) {
   if(user){
     currentUser = {
-    	name: user.displayName, 
+    	name: user.displayName || user.email, 
     	id: user.uid,
     	img: user.photoURL
     };
@@ -205,10 +205,11 @@ function showPayments(data){
 	<td>
 		<label>Every </label>
 			<select name="freqUnit" value="${pfreqUnit}" required>
-			<option data-unit="Day" ${pfreqUnit==="Day" ? 'selected' : ''}>Day</option>
-			<option data-unit="Week" ${pfreqUnit==="Week" ? 'selected' : ''}>Week</option>
-			<option data-unit="Month" ${pfreqUnit==="Month" ? 'selected' : ''}>Month</option>
-			<option data-unit="Year" ${pfreqUnit==="Year" ? 'selected' : ''}>Year</option>
+				<option value="hour" ${pfreqUnit==="day" ? 'selected' : ''}>Hourly</option>
+				<option value="day" ${pfreqUnit==="day" ? 'selected' : ''}>Daily</option>
+				<option value="week" ${pfreqUnit==="Week" ? 'selected' : ''}>Weekly</option>
+				<option value="month" ${pfreqUnit==="Month" ? 'selected' : ''}>Monthly</option>
+				<option value="year" selected ${pfreqUnit==="Year" ? 'selected' : ''}>Yearly</option>
 		</select>
 	</td>
 	<td>
@@ -255,12 +256,16 @@ function unshowPayments(data){
 
 /* Function to check / update countdown times */
 function recheckCountdown(countUnit = 'min'){
+
 	let all = $('.payments-items tr');
+
 	for(let i = 0, x=all.length; i < x; i++){
+
 		let trow = all[i],
 			tfirstEvntDay = $(trow).find('input[name="firstEvntDay"]').val(),
 			tfirstEvntTime = $(trow).find('input[name="firstEvntTime"]').val();
-		if(moment().isAfter(tfirstEvntDay + ' ' + tfirstEvntTime)){
+
+		if(moment(new Date()).isAfter(tfirstEvntDay + ' ' + tfirstEvntTime)){
 			let tnewDate = moment(tfirstEvntDay + ' ' + tfirstEvntTime).add(1, $(trow).find('select[name="freqUnit"]').val());
 			$(trow).find('input[name="firstEvntDay"]').val(tnewDate.format('YYYY-MM-DD'));
 			$(trow).find('input[name="firstEvntTime"]').val(tnewDate.format('HH:mm')).trigger('change');

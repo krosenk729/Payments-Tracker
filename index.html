@@ -3,9 +3,10 @@
 <head>
 	<title>Recurring Payments</title>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-	<link rel="stylesheet" href="assets/css/style.css">
+	<!-- <link rel="stylesheet" href="assets/css/style.css"> -->
 </head>
 <body>
 	<div class="container-fluid">
@@ -42,13 +43,11 @@
 					<col>
 					<col>
 					<col>
-					<col>
 				</colgroup>
 				<thead>
 					<tr>
-						<th>Payment Desc</th>
-						<th>Cost</th>
-						<th>Frequency</th>
+						<th>Payment</th>
+						<th>Cost Every Interval</th>
 						<th>Next Charge</th>
 						<th><span class="sr-only">Actions</span></th>
 					</tr>
@@ -59,8 +58,8 @@
 				<tfoot>
 					<tr class="payments-totals">
 						<td>Total: </td>
-						<td>300</td>
-						<td colspan="4"></td>
+						<td></td>
+						<td colspan="3"></td>
 					</tr>
 				</tfoot>
 			</table>
@@ -73,13 +72,11 @@
 					<col>
 					<col>
 					<col>
-					<col>
 				</colgroup>
 				<thead>
 					<tr>
 						<th>Store Name</th>
-						<th>Cost</th>
-						<th>Frequency</th>
+						<th>Cost Every Interval</th>
 						<th>First Charge</th>
 						<th><span class="sr-only">Actions</span></th>
 					</tr>
@@ -90,23 +87,19 @@
 							<div class="form-group">
 								<label class="sr-only">Store Name</label>
 								<input type="text" name="store" id="new-store" placeholder="Store Name" required>
-								<small class="desc-text">Store Name</small>
+								<small class="desc-text">You can add a description later</small>
 							</div>
 						</td>
 						<td>
 							<div class="form-group">
 								<label class="sr-only">Recurring Cost</label>
 								$<input type="number" name="cost" id="new-cost" placeholder="50" required>
-							</div>
-						</td>
-						<td>
-							<div class="form-group form-inline">
-								<label>Every </label>
 								<select name="freqUnit" id="new-freqUnit">
-									<option>Day</option>
-									<option>Week</option>
-									<option>Month</option>
-									<option selected>Year</option>
+									<option value="hour">Hourly</option>
+									<option value="day">Daily</option>
+									<option value="week">Weekly</option>
+									<option value="month">Monthly</option>
+									<option value="year" selected>Yearly</option>
 								</select>
 							<div>
 						</td>
@@ -117,7 +110,7 @@
 								 at 
 								<input type="time" step="60" name="firstEvntTime" id="new-firstEvntTime" value="12:00" required>
 							</div>
-							<small class="count-until">First charge date/time</small>
+							<small class="count-until">Future charge dates will be calculated using this</small>
 						</td>
 						<td>
 							<button class="btn btn-add-new">+ Add</button>
@@ -132,7 +125,6 @@
 	<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-auth.js"></script>
-	<!-- <script src="assets/js/app.js"></script> -->
 	<script src="assets/js/app-with-user.js"></script>
 </body>
 </html>
