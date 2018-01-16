@@ -186,8 +186,8 @@ function showPayments(data){
 		pfreqUnit = data.val().freqUnit,
 		pfirstEvntDay = data.val().firstEvntDay,
 		pfirstEvntTime = data.val().firstEvntTime,
-		pcosttoFuture = (countdownTo(pfirstEvntDay, pfirstEvntTime, futureYear, pfreqUnit)+1)*pcost,
-		pcounttonext = Math.abs(countdownTo(pfirstEvntDay, pfirstEvntTime, '', countUnit)) + ' ' + countUnit; 
+		pcosttoFuture = formatNumber((countdownTo(pfirstEvntDay, pfirstEvntTime, futureYear, pfreqUnit)+1)*pcost),
+		pcounttonext = formatNumber(Math.abs(countdownTo(pfirstEvntDay, pfirstEvntTime, '', countUnit)) + ' ' + countUnit); 
 		//alternative option of passing in pfreqUnit here
 	
 	let pfragment = 
@@ -199,15 +199,15 @@ function showPayments(data){
 	</td>
 	<td>
 		<label class="sr-only">Cost of Recurring Payment</label>
-		$<input type="number" name="cost" value="${pcost}" required>
-		<small class="cost-until">Total: $${pcosttoFuture} by 2020</small>
+		$<input type="number" name="cost" value="${pcost}">
 		<select name="freqUnit" value="${pfreqUnit}" required>
 			<option value="hour" ${pfreqUnit==="hour" ? 'selected' : ''}>Hourly</option>
 			<option value="day" ${pfreqUnit==="day" ? 'selected' : ''}>Daily</option>
 			<option value="week" ${pfreqUnit==="week" ? 'selected' : ''}>Weekly</option>
 			<option value="month" ${pfreqUnit==="month" ? 'selected' : ''}>Monthly</option>
-			<option value="year" selected ${pfreqUnit==="year" ? 'selected' : ''}>Yearly</option>
+			<option value="year" ${pfreqUnit==="year" ? 'selected' : ''}>Yearly</option>
 		</select>
+		<small class="cost-until">Total: $${pcosttoFuture} by 2020</small>
 	</td>
 	<td>
 		<label class="sr-only">Next Charge Date and Time</label>
@@ -278,4 +278,15 @@ function recheckCountdown(countUnit = 'min'){
 function countdownTo( nextEventDay, nextEventTime, untilDate = '', unit = 'days' ){
 	return moment((untilDate ? moment(untilDate) : moment()))
 	.diff( nextEventDay + ' ' + nextEventTime , unit);
+}
+
+function formatNumber(n){
+	let newN = '';
+	 do{
+	   let a = n%10;
+	   n = Math.trunc(n/10);
+	   newN = a+newN;
+	 }while(n>0)
+
+	return newN.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
 }
