@@ -254,7 +254,7 @@ function showPayments(data){
 
 function calcTotal(){
 	let total = 0;
-	firebase.database().ref('payments').orderByChild('user').equalTo(user.id)
+	firebase.database().ref('payments').orderByChild('user').equalTo(currentUser.id)
 		.once('value', function(data){
 			for(let i in data){
 				total += data[i].cost;
