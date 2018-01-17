@@ -1,0 +1,253 @@
+$color-tq: #37c3be;
+$color-drpurp: #20109a;
+$color-drpurp-opc: rgba(32, 16, 154, .88);
+$color-mdpurp: #2d208f;
+$color-ltpurp: #3c2abf;
+$color-ltpurp-opc: rgba(60, 42, 191, .44);
+$color-pinkish: #fa4359;
+$color-whitish: #fefefe;
+
+
+@import url('https://fonts.googleapis.com/css?family=Didact+Gothic|Francois+One');
+$font-body: 'Didact Gothic', sans-serif;
+$font-headings: 'Francois One', sans-serif;
+
+@mixin trans($which: all, $time:0.1s, $opt: ease-in-out){
+	-webkit-transition: $which $time $opt;
+	-moz-transition: 	$which $time $opt;
+	-ms-transition: 	$which $time $opt;
+	-o-transition: 		$which $time $opt;
+	transition: 		$which $time $opt;
+}
+
+.center{
+	text-align: center;
+}
+
+.hideme{
+	visibility: none;
+}
+
+html, body{
+	height: 100%;
+	font-family: $font-body;
+
+	h1, h2, h3, h4, h5, h6{
+		font-family: $font-headings;
+	}
+}
+.container-fluid{
+	background: url("https://raw.githubusercontent.com/krosenk729/Payments-Tracker/master/assets/images/background.png") top center;
+	background-size: cover;
+	position: relative;
+	height: auto;
+	min-height: 100%;
+}
+
+.jumbotron{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 2em 1em;
+	background-color: $color-drpurp-opc;
+	margin-left: -15px;
+	margin-right: -15px;
+
+	h1, div{
+		flex-basis: 50%;
+		color: $color-whitish !important;
+	}
+	.user-loggedin{
+		display: flex;
+		flex-direction: column;
+		align-items: end;
+
+		& > div{
+			display: flex;
+			align-items: baseline;
+			align-content: baseline;
+		}
+	}
+
+	.user-img{
+		height: 2.4em;
+		margin: 0 .5em;
+		border-radius: 50%;
+	}
+
+	.bt-user-logout{
+		padding: 0 .3em;
+		margin: 0 .3em;
+		color: $color-tq;
+		border: none;
+		&:hover{
+			background: none;
+			color: $color-pinkish;
+		}
+	}
+
+	// Option toggles
+	.view-options{
+		padding: 0;
+		border: 2px solid $color-ltpurp;
+		margin: .4em;
+		input{
+			position: absolute;
+			clip: rect(0, 0, 0, 0);
+			height: 1px;
+			width: 1px;
+			border: 0;
+			overflow: hidden;
+
+			&:checked + label{
+				background-color: $color-ltpurp;
+				text-decoration: underline;
+				font-weight: bold;
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+		}
+
+		label{
+			@extend .center;
+			float: left;
+			display: inline-block;
+			min-width: 160px;
+			// background-color: $color-drpurp;
+			color: $color-whitish;
+			font-size: 14px;
+			font-weight: normal;
+			text-shadow: none;
+			padding: .5em .7em .4em .7em;
+			height: 100%;
+			@include trans(all, 0.1s, ease-in-out);
+
+			&:hover{
+				cursor: pointer;
+				text-decoration: underline;
+				font-weight: bold;
+			}
+		}
+	}
+}
+
+.card{
+	margin: 1.5em 0;
+	padding: 1.5em 1em;
+	color: $color-whitish;
+	background-color: $color-drpurp-opc;
+
+	&.placeholder-for-list{
+		padding: 2em;
+		text-align: center;
+		font-size: 1.5em;
+		a{
+			font-family: $font-headings;
+			font-weight: bold;
+			color: $color-tq;
+			@include trans(all, 0.1s, ease-in-out);
+			&:hover{
+				transform: scale(2);
+			}
+		}
+	}
+
+	small{
+		display: block;
+	}
+
+	table{
+		background-color: $color-ltpurp-opc;
+		
+		& *{
+			line-height: 2.5em;
+		}
+	}
+
+	input{
+		background: none;
+		border: none;
+		color: $color-whitish;
+		font-family: $font-body;
+		border-bottom: 2px solid $color-tq;
+		&:focus{
+			border-bottom: 2px solid $color-pinkish;
+		}
+		&:invalid{
+			color: 2px solid $color-pinkish;
+		}
+
+		&[name="cost"]{
+			width: 120px;
+			&:after{
+				display: block;
+				content: '';
+			}
+		}
+		&[name="desc"]{
+			width: 100%;
+			min-width: 120px;
+		}
+		&[type="number"]{
+			-moz-appearance: textfield;
+
+			&::-webkit-outer-spin-button,
+			&::-webkit-inner-spin-button{
+				-webkit-appearance: none;
+				margin: 0;
+			}
+		}
+		&[name="freqUnit"]{
+			margin: 0 .2em;
+		}
+	}
+	select, 
+	option{
+		@extend input;
+		background-color: $color-drpurp;
+	}
+}
+
+col{
+	&:nth-child(1){
+		min-width: 170px;
+	}
+	&:nth-child(2){
+		width: 170px;
+	}
+	&:last-of-type{
+		width: 70px;
+	}
+}
+
+button{
+	&.btn{
+		background: none;
+		border: 4px solid $color-tq;
+		color: $color-whitish;
+		font-size: 1.2em;
+		font-weight: bold;
+
+		&:hover{
+			background-color: $color-tq;
+		}
+		&:active{
+
+		}
+	}
+	&.btn-remove-row{
+		background: none;
+		border: 4px solid $color-pinkish;
+		color: $color-whitish;
+		font-size: 1.2em;
+		font-weight: bold;
+
+		&:hover{
+			background-color: $color-pinkish;
+		}
+		&:active{
+
+		}
+
+	}
+}

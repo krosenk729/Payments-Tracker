@@ -134,7 +134,7 @@ function sendNewPayment(){
 	};
 
 	if(o.store && o.cost && o.firstEvntDay && o.firstEvntTime){
-		updateFirebase(p, o, 'push').then(()=>{ clearForm(); });
+		updateFirebase(p, o, 'push').then( ()=>{clearForm();} );
 	}
 }
 
@@ -251,6 +251,20 @@ function showPayments(data){
 // calculates total of all a users' payments
 // And shows in a total row  
 */
+
+function calcTotal(){
+	let total = 0;
+	firebase.database().ref('payments').orderByChild('user').equalTo(user.id)
+		.once('value', function(data){
+			for(let i in data){
+				total += data[i].cost;
+			}
+		});
+
+	$('.payments-totals td:nth-child(2)').text(total);
+}
+
+/*Previous function: using jquery UI modifications
 function calcTotal(){
 	let total = 0,
 		all = $('.payments-items input[name="cost"]');
@@ -261,6 +275,7 @@ function calcTotal(){
 
 	$('.payments-totals td:nth-child(2)').text(total);
 }
+*/
 
 
 /* Helper Function: unshowPayments
