@@ -144,7 +144,7 @@ function sendNewPayment(){
 	};
 
 	if(o.store && o.cost && o.firstEvntDay && o.firstEvntTime){
-		updateFirebase(p, o, 'push').then( ()=>{clearForm();} );
+		updateFirebase(p, o, 'push').then( ()=>{ clearForm();} );
 	}
 }
 
@@ -178,7 +178,8 @@ function delPayment(){
 // Resets form fields to default values
 */
 function clearForm(){
-	$('#new-store, #new-cost').val('0');
+	$('#new-store').val('');
+	$('#new-cost').val('0');
 	$('#new-firstEvntTime').val('12:00');
 	$('#new-firstEvntDay').val( moment(new Date).format('YYYY-MM-DD') );
 	$('#new-freqUnit').val('year');
