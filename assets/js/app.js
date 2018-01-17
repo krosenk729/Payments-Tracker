@@ -37,13 +37,13 @@ function signUserIn() {
 	});
 }
 function signUserOut(){
+	clearInterval(recheckInt);
 	firebase.auth().signOut()
 	.then(function(){
 		clearForm();
 		firebase.database().ref('payments').off('value');
 		firebase.database().ref('payments').off('child_added');
 		firebase.database().ref('payments').off('child_changed');
-		// signed out -- all UI updates handled by onAuthStateChanged
 	});
 }
 
@@ -103,7 +103,7 @@ function onlyIfSignedIn(user){
 			unshowPayments(data);
 		});
 
-	recheck = setInterval(recheckCountdown, countUnit === 'days' ? 86400000 : 60000 );
+	recheckInt = setInterval(recheckCountdown, countUnit === 'days' ? 86400000 : 1000 );
 
 	$('.btn-add-new').on('click', sendNewPayment);
 	$('.payments-items').on('change', 'input, select', updatePayment);
@@ -297,6 +297,7 @@ function unshowPayments(data){
 */
 function recheckCountdown(countUnit){
 	let all = $('.payments-items tr');
+	console.log('rechecked');
 	// goal: get the firstEvntDay, firstEvntTime and tr
 	for(let i = 0, x=all.length; i < x; i++){
 		let trow = all[i],
