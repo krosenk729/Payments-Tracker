@@ -1,3 +1,4 @@
+($(document).ready(function(){
 /* Initialize
 // Declaring variables
 // Setting up firebase config
@@ -25,6 +26,7 @@ let currentUser = '',
 */
 $('.bt-user-login, .placeholder-for-list a').click(signUserIn);
 $('.bt-user-logout').click(signUserOut);
+
 
 function signUserIn() {
 	firebase.auth().signInWithPopup(PROVIDER)
@@ -326,5 +328,6 @@ function formatNumber(n){
 	   newN = a+newN;
 	 }while(n>0)
 
-	return newN.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+	return newN.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
+})();
