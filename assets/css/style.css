@@ -81,6 +81,7 @@ button.active {
     border-radius: 50%; }
   .jumbotron .view-options {
     padding: 0;
+    border: 1px solid #b0b0b0;
     margin: .4em; }
     .jumbotron .view-options input, .jumbotron .view-options select,
     .jumbotron .view-options option {
@@ -89,11 +90,18 @@ button.active {
       height: 1px;
       width: 1px;
       border: 0;
-      overflow: hidden; }
+      overflow: hidden;
+      -webkit-transition: all 0.1s ease-in-out;
+      -moz-transition: all 0.1s ease-in-out;
+      -ms-transition: all 0.1s ease-in-out;
+      -o-transition: all 0.1s ease-in-out;
+      transition: all 0.1s ease-in-out; }
       .jumbotron .view-options input:checked + label, .jumbotron .view-options select:checked + label,
       .jumbotron .view-options option:checked + label {
+        background-color: #b0b0b0;
         text-decoration: underline;
         font-weight: bold;
+        transform: scale(0.95);
         -webkit-box-shadow: none;
         box-shadow: none; }
     .jumbotron .view-options label {
@@ -142,7 +150,7 @@ table th, table td {
   vertical-align: top; }
 table td {
   min-width: 200px; }
-table .payments-list tbody tr:hover {
+table .payments-items > tr:hover {
   background-color: rgba(189, 189, 189, 0.2); }
 table small {
   display: block;
@@ -155,6 +163,8 @@ table col:nth-child(3) {
   min-width: 310px; }
 table col:nth-child(4) {
   min-width: 90px; }
+table td:nth-child(4) {
+  text-align: center; }
 
 input, select,
 option {
@@ -234,8 +244,10 @@ button.btn {
     color: #212121; }
 button.btn-remove-row {
   background: none;
-  color: #f80759;
-  font-size: 1.2em;
+  box-shadow: none !important;
+  border: 1.5px solid #f80759;
+  color: #b0b0b0;
+  font-size: .8em;
   font-weight: bold; }
   button.btn-remove-row:hover {
     color: #bc4e9c;
@@ -244,9 +256,9 @@ button.bt-user-logout {
   padding: 0 .3em;
   margin: 0 .3em;
   color: #11998e;
+  background: none;
   border: none; }
   button.bt-user-logout:hover {
-    background: none;
     color: #38ef7d; }
 
 /*# sourceMappingURL=style.css.map */
