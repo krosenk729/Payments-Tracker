@@ -1,4 +1,4 @@
-($(document).ready(function(){
+(function(){
 /* Initialize
 // Declaring variables
 // Setting up firebase config
@@ -330,4 +330,5 @@ function formatNumber(n){
 
 	return newN.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
+
 })();
