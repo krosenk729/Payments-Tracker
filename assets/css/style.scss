@@ -37,8 +37,6 @@ html, body{
 	}
 }
 .container-fluid{
-	background: url("https://raw.githubusercontent.com/krosenk729/Payments-Tracker/master/assets/images/background.png") top center;
-	background-size: cover;
 	position: relative;
 	height: auto;
 	min-height: 100%;
@@ -49,13 +47,12 @@ html, body{
 	justify-content: space-between;
 	align-items: center;
 	padding: 2em 1em;
-	background-color: $color-drpurp-opc;
+	// background-color: $color-drpurp-opc;
 	margin-left: -15px;
 	margin-right: -15px;
 
 	h1, div{
 		flex-basis: 50%;
-		color: $color-whitish !important;
 	}
 	.user-loggedin{
 		display: flex;
@@ -73,17 +70,6 @@ html, body{
 		height: 2.4em;
 		margin: 0 .5em;
 		border-radius: 50%;
-	}
-
-	.bt-user-logout{
-		padding: 0 .3em;
-		margin: 0 .3em;
-		color: $color-tq;
-		border: none;
-		&:hover{
-			background: none;
-			color: $color-pinkish;
-		}
 	}
 
 	// Option toggles
@@ -249,5 +235,16 @@ button{
 
 		}
 
+	}
+
+	&.bt-user-logout{
+		padding: 0 .3em;
+		margin: 0 .3em;
+		color: $color-tq;
+		border: none;
+		&:hover{
+			background: none;
+			color: $color-pinkish;
+		}
 	}
 }

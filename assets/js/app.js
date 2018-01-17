@@ -103,7 +103,7 @@ function onlyIfSignedIn(user){
 			unshowPayments(data);
 		});
 
-	recheckInt = setInterval(recheckCountdown, countUnit === 'days' ? 86400000 : 1000 );
+	recheckInt = setInterval(recheckCountdown, countUnit === 'minutes' ? 60000 : 1000 );
 
 	$('.btn-add-new').on('click', sendNewPayment);
 	$('.payments-items').on('change', 'input, select', updatePayment);
@@ -256,8 +256,9 @@ function calcTotal(){
 	let total = 0;
 	firebase.database().ref('payments').orderByChild('user').equalTo(currentUser.id)
 		.once('value', function(data){
+			data = data.val();
 			for(let i in data){
-				total += data[i].cost;
+				total += Number(data[i].cost);
 			}
 		});
 
@@ -295,10 +296,37 @@ function unshowPayments(data){
 // If a date has passed, it is progressed to the next event date
 // If a date has not passed, the countdown time until next event is updated
 */
+function recheckCountdown(){
+	console.log('rechecked');
+	firebase.database().ref('payments').orderByChild('user').equalTo(currentUser.id)
+		.once('value', function(data){
+			data = data.val();
+			for(let i in data){
+				let tfirstEvntDay = data[i].firstEvntDay,
+					tfirstEvntTime = data[i].firstEvntTime,
+					tdiff = countdownTo(tfirstEvntDay, tfirstEvntTime, '', 'seconds');
+
+					if(tdiff > 0){
+						let tnewDate = moment(tfirstEvntDay + ' ' + tfirstEvntTime).add(1, data[i].freqUnit),
+							p = 'payments/'+ i,
+							o = {};
+						o.firstEvntDay = tnewDate.format('YYYY-MM-DD');
+						o.firstEvntTime = tnewDate.format('HH:mm');
+						updateFirebase(p, o, 'update');
+					} else {
+						$(`[data-id="${i}"] .count-until`).text('Next charge in '
+							+ formatNumber(Math.abs(countdownTo(tfirstEvntDay, tfirstEvntTime, '', countUnit)))
+							+ ' ' + countUnit);
+					}
+			}
+		});
+}
+
+
+/* Previous function: using jquery 
 function recheckCountdown(countUnit){
 	let all = $('.payments-items tr');
 	console.log('rechecked');
-	// goal: get the firstEvntDay, firstEvntTime and tr
 	for(let i = 0, x=all.length; i < x; i++){
 		let trow = all[i],
 			tfirstEvntDay = $(trow).find('input[name="firstEvntDay"]').val(),
@@ -319,6 +347,8 @@ function recheckCountdown(countUnit){
 		}
 	}
 }
+*/
+
 
 /* Helper Function: coundtownTo
 // Returns the time between a day, time and passed date
