@@ -66,10 +66,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 	}
 	switchUItoSignedIn(currentUser);
 	onlyIfSignedIn(currentUser);
-    console.log('sign in complete', user);
 
   } else {
-    console.log('signed out / no user');
     currentUser = undefined;
 
 	function switchUItoSignedOut(){
@@ -124,7 +122,6 @@ function onlyIfSignedIn(user){
 // When a button within a form is clicked 
 */
 function sendNewPayment(){
-
 	let p = 'payments',
 	o = {
 		store: $('#new-store').val().trim(),
@@ -136,8 +133,9 @@ function sendNewPayment(){
 		user: currentUser.id
 	};
 
-	// Send New Payment to Firebase (push)
-	updateFirebase(p, o, 'push').then(()=>{ clearForm(); });
+	if(o.store && o.cost && o.firstEvntDay && o.firstEvntTime){
+		updateFirebase(p, o, 'push').then(()=>{ clearForm(); });
+	}
 }
 
 /* Field Method: updatePayment
@@ -180,7 +178,6 @@ function clearForm(){
 // Sends an object to firebase at a given path with a given operation
 */
 function updateFirebase(path = 'payments', o = {}, t = 'push'){
-	console.log('updateFirebase was called', o, path);
 	switch(t){
 		case 'update':
 			firebase.database().ref(path).update(o);
@@ -243,7 +240,6 @@ function showPayments(data){
 	</tr>`;
 	if(prow.length > 0){
 		prow.replaceWith(pfragment);
-		console.log('replacing');
 	} else {
 		$('.payments-items').append(pfragment);
 	}
@@ -285,7 +281,6 @@ function unshowPayments(data){
 // If a date has not passed, the countdown time until next event is updated
 */
 function recheckCountdown(countUnit){
-	console.log('countunit', countUnit);
 	let all = $('.payments-items tr');
 	// goal: get the firstEvntDay, firstEvntTime and tr
 	for(let i = 0, x=all.length; i < x; i++){
