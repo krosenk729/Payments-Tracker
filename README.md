@@ -10,14 +10,14 @@ Tech used:
 - Moment.js
 - scss
 
-##Screenshot: 
+## Screenshot: 
 What it looks like once logged in
 
 
 ![screenshot](assets/images/app-screen-loggedin.png)
 
 
-##Web Storage:
+## Web Storage:
 Document storage keeps users in one group and payments tracked in another (index for a payments' user is referenced as a payment document property)
 
 
