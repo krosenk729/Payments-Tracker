@@ -114,7 +114,17 @@ function onlyIfSignedIn(user){
 		$('#should-hide-money').empty();
 	});
 
-	recheckInt = setInterval(recheckCountdown, countUnit === 'minutes' ? 3000 : 1000 );
+	$('#countdown-min').on('change', function(){
+		clearInterval(recheckInt);
+		countUnit = 'minutes';
+		recheckInt = setInterval(recheckCountdown, 60000);
+	});
+	$('#countdown-min').on('change', function(){
+		clearInterval(recheckInt);
+		countUnit = 'days';
+		recheckInt = setInterval(recheckCountdown, 86400000);
+	});
+	recheckInt = setInterval(recheckCountdown, countUnit === 'minutes' ? 60000 : 86400000 );
 }
 
 /* Form Method: sendNewPayment
@@ -291,6 +301,7 @@ function unshowPayments(data){
 	calcTotal();
 }
 
+
 /* Helper Function: recheckCountdown
 // Checks if a payment date has passed 
 // If a date has passed, it is progressed to the next event date
@@ -308,6 +319,7 @@ function recheckCountdown(){
 
 					if(tdiff > 0){
 						let tnewDate = moment(tfirstEvntDay + ' ' + tfirstEvntTime).add(1, data[i].freqUnit),
+						// need to add 1 freqUnit until dtiff <0 
 							p = 'payments/'+ i,
 							o = {};
 						o.firstEvntDay = tnewDate.format('YYYY-MM-DD');
