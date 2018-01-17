@@ -101,7 +101,6 @@ button.active {
         background-color: #b0b0b0;
         text-decoration: underline;
         font-weight: bold;
-        transform: scale(0.95);
         -webkit-box-shadow: none;
         box-shadow: none; }
     .jumbotron .view-options label {
@@ -246,12 +245,16 @@ button.btn-remove-row {
   background: none;
   box-shadow: none !important;
   border: 1.5px solid #f80759;
+  border-radius: 3.5px;
   color: #b0b0b0;
   font-size: .8em;
   font-weight: bold; }
   button.btn-remove-row:hover {
-    color: #bc4e9c;
-    transform: scale(0.8); }
+    border: 2px solid #bc4e9c;
+    color: #bc4e9c; }
+  button.btn-remove-row:active {
+    border: 2px solid #bc4e9c;
+    color: #212121; }
 button.bt-user-logout {
   padding: 0 .3em;
   margin: 0 .3em;

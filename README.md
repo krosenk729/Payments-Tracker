@@ -1,2 +1,5 @@
 # Payments-Tracker
-Firebase app 
+
+[Firebase app](https://krosenk729.github.io/Payments-Tracker/) to track your recurring payments (Spotify, Amazon, Mortgage - you name it) as a homework project instead of tracking a train schedule 
+
+Users can enter their upcoming payment and choose if they want to see the total aggregates or not. Payment details can be updated at or removed at any point. $$$$

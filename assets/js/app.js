@@ -178,7 +178,7 @@ function delPayment(){
 // Resets form fields to default values
 */
 function clearForm(){
-	$('#new-store, #new-cost').val('');
+	$('#new-store, #new-cost').val('0');
 	$('#new-firstEvntTime').val('12:00');
 	$('#new-firstEvntDay').val( moment(new Date).format('YYYY-MM-DD') );
 	$('#new-freqUnit').val('year');
@@ -245,7 +245,7 @@ function showPayments(data){
 		<small class="count-until">Next charge in ${pcounttonext}</small>
 	</td>
 	<td>
-		<button class="btn-remove-row">Remove</button>
+		<button class="btn btn-remove-row">- Remove</button>
 	</td>
 	</tr>`;
 	if(prow.length > 0){

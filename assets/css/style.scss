@@ -142,7 +142,6 @@ button.active
 				background-color: darken($c-ltgrey, 5%);
 				text-decoration: underline;
 				font-weight: bold;
-				transform: scale(.95);
 				-webkit-box-shadow: none;
 				box-shadow: none;
 			}
@@ -335,13 +334,18 @@ button{
 		background: none;
 		box-shadow: none !important;
 		border: 1.5px solid $c-orange1;
+		border-radius: 3.5px;
 		color: darken($c-ltgrey, 5%);
 		font-size: .8em;
 		font-weight: bold;
 
 		&:hover{
+			border: 2px solid $c-orange2;
 			color: $c-orange2;
-			transform: scale(.8);
+		}
+		&:active{
+			border: 2px solid $c-orange2;
+			color: $c-drgrey;
 		}
 	}
 
