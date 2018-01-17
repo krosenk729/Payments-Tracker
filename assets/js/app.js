@@ -245,7 +245,7 @@ function showPayments(data){
 		<small class="count-until">Next charge in ${pcounttonext}</small>
 	</td>
 	<td>
-		<button class="btn btn-remove-row">Remove</button>
+		<button class="btn-remove-row">Remove</button>
 	</td>
 	</tr>`;
 	if(prow.length > 0){

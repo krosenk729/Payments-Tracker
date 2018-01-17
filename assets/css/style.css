@@ -1,4 +1,24 @@
-@import url("https://fonts.googleapis.com/css?family=Didact+Gothic|Francois+One");
+@import url("https://fonts.googleapis.com/css?family=Nunito|Roboto:700");
+input:focus, select:focus,
+option:focus {
+  background: none;
+  border: none;
+  border-bottom: 1.5px solid transparent;
+  -moz-border-image: moz-linear-gradient(right, #00c6ff 0%, #0072ff 100%);
+  -webkit-border-image: -webkit-linear-gradient(right, #00c6ff 0%, #0072ff 100%);
+  border-image: linear-gradient(to right, #00c6ff 0%, #0072ff 100%);
+  border-image-slice: 1; }
+
+input:invalid, select:invalid,
+option:invalid {
+  background: none;
+  border: none;
+  border-bottom: 1.5px solid transparent;
+  -moz-border-image: moz-linear-gradient(right, #f80759 0%, #bc4e9c 100%);
+  -webkit-border-image: -webkit-linear-gradient(right, #f80759 0%, #bc4e9c 100%);
+  border-image: linear-gradient(to right, #f80759 0%, #bc4e9c 100%);
+  border-image-slice: 1; }
+
 .center, .jumbotron .view-options label {
   text-align: center; }
 
@@ -7,28 +27,46 @@
 
 html, body {
   height: 100%;
-  font-family: "Didact Gothic", sans-serif; }
+  font-family: "Nunito", sans-serif;
+  color: #212121; }
   html h1, html h2, html h3, html h4, html h5, html h6, body h1, body h2, body h3, body h4, body h5, body h6 {
-    font-family: "Francois One", sans-serif; }
+    font-family: "Roboto", sans-serif; }
 
 .container-fluid {
-  background: url("https://raw.githubusercontent.com/krosenk729/Payments-Tracker/master/assets/images/background.png") top center;
-  background-size: cover;
   position: relative;
   height: auto;
   min-height: 100%; }
+
+textarea:hover,
+input:hover,
+select:hover,
+option:hover,
+textarea:active,
+input:active,
+select:active,
+option:active,
+textarea:focus,
+input:focus,
+select:focus,
+option:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+button:active,
+button.active {
+  outline: 0px !important;
+  -webkit-appearance: none; }
 
 .jumbotron {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 2em 1em;
-  background-color: rgba(32, 16, 154, 0.88);
   margin-left: -15px;
   margin-right: -15px; }
   .jumbotron h1, .jumbotron div {
-    flex-basis: 50%;
-    color: #fefefe !important; }
+    flex-basis: 50%; }
   .jumbotron .user-loggedin {
     display: flex;
     flex-direction: column;
@@ -41,31 +79,19 @@ html, body {
     height: 2.4em;
     margin: 0 .5em;
     border-radius: 50%; }
-  .jumbotron .bt-user-logout {
-    padding: 0 .3em;
-    margin: 0 .3em;
-    color: #37c3be;
-    border: none; }
-    .jumbotron .bt-user-logout:hover {
-      background: none;
-      color: #fa4359; }
   .jumbotron .view-options {
     padding: 0;
-    border: 2px solid #3c2abf;
     margin: .4em; }
-    .jumbotron .view-options input, .jumbotron .view-options .card select, .card .jumbotron .view-options select,
-    .jumbotron .view-options .card option,
-    .card .jumbotron .view-options option {
+    .jumbotron .view-options input, .jumbotron .view-options select,
+    .jumbotron .view-options option {
       position: absolute;
       clip: rect(0, 0, 0, 0);
       height: 1px;
       width: 1px;
       border: 0;
       overflow: hidden; }
-      .jumbotron .view-options input:checked + label, .jumbotron .view-options .card select:checked + label, .card .jumbotron .view-options select:checked + label,
-      .jumbotron .view-options .card option:checked + label,
-      .card .jumbotron .view-options option:checked + label {
-        background-color: #3c2abf;
+      .jumbotron .view-options input:checked + label, .jumbotron .view-options select:checked + label,
+      .jumbotron .view-options option:checked + label {
         text-decoration: underline;
         font-weight: bold;
         -webkit-box-shadow: none;
@@ -74,7 +100,6 @@ html, body {
       float: left;
       display: inline-block;
       min-width: 160px;
-      color: #fefefe;
       font-size: 14px;
       font-weight: normal;
       text-shadow: none;
@@ -92,91 +117,136 @@ html, body {
 
 .card {
   margin: 1.5em 0;
-  padding: 1.5em 1em;
-  color: #fefefe;
-  background-color: rgba(32, 16, 154, 0.88); }
+  padding: 1.5em 1em; }
   .card.placeholder-for-list {
     padding: 2em;
     text-align: center;
     font-size: 1.5em; }
     .card.placeholder-for-list a {
-      font-family: "Francois One", sans-serif;
+      font-family: "Roboto", sans-serif;
       font-weight: bold;
-      color: #37c3be;
+      color: #11998e;
       -webkit-transition: all 0.1s ease-in-out;
       -moz-transition: all 0.1s ease-in-out;
       -ms-transition: all 0.1s ease-in-out;
       -o-transition: all 0.1s ease-in-out;
       transition: all 0.1s ease-in-out; }
       .card.placeholder-for-list a:hover {
-        transform: scale(2); }
-  .card small {
-    display: block; }
-  .card table {
-    background-color: rgba(60, 42, 191, 0.44); }
-    .card table * {
-      line-height: 2.5em; }
-  .card input, .card select,
-  .card option {
-    background: none;
-    border: none;
-    color: #fefefe;
-    font-family: "Didact Gothic", sans-serif;
-    border-bottom: 2px solid #37c3be; }
-    .card input:focus, .card select:focus,
-    .card option:focus {
-      border-bottom: 2px solid #fa4359; }
-    .card input:invalid, .card select:invalid,
-    .card option:invalid {
-      color: 2px solid #fa4359; }
-    .card input[name="cost"], .card select[name="cost"],
-    .card option[name="cost"] {
-      width: 120px; }
-      .card input[name="cost"]:after, .card select[name="cost"]:after,
-      .card option[name="cost"]:after {
-        display: block;
-        content: ''; }
-    .card input[name="desc"], .card select[name="desc"],
-    .card option[name="desc"] {
-      width: 100%;
-      min-width: 120px; }
-    .card input[type="number"], .card select[type="number"],
-    .card option[type="number"] {
-      -moz-appearance: textfield; }
-      .card input[type="number"]::-webkit-outer-spin-button, .card select[type="number"]::-webkit-outer-spin-button,
-      .card option[type="number"]::-webkit-outer-spin-button, .card input[type="number"]::-webkit-inner-spin-button, .card select[type="number"]::-webkit-inner-spin-button,
-      .card option[type="number"]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0; }
-    .card input[name="freqUnit"], .card select[name="freqUnit"],
-    .card option[name="freqUnit"] {
-      margin: 0 .2em; }
-  .card select,
-  .card option {
-    background-color: #20109a; }
+        transform: scale(1.1); }
+      .card.placeholder-for-list a:active {
+        color: #38ef7d; }
 
-col:nth-child(1) {
-  min-width: 170px; }
-col:nth-child(2) {
-  width: 170px; }
-col:last-of-type {
-  width: 70px; }
+table * {
+  line-height: 2.5em; }
+table th, table td {
+  vertical-align: top; }
+table td {
+  min-width: 200px; }
+table .payments-list tbody tr:hover {
+  background-color: rgba(189, 189, 189, 0.2); }
+table small {
+  display: block;
+  color: #bdbdbd; }
+table col:nth-child(1) {
+  min-width: 250px; }
+table col:nth-child(2) {
+  min-width: 195; }
+table col:nth-child(3) {
+  min-width: 310px; }
+table col:nth-child(4) {
+  min-width: 90px; }
+
+input, select,
+option {
+  box-shadow: none !important;
+  outline: none;
+  background: none;
+  border: none;
+  font-family: "Nunito", sans-serif;
+  height: 44px;
+  padding: 0 .5em;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -ms-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  background: none;
+  border: none;
+  border-bottom: 1px solid transparent;
+  -moz-border-image: moz-linear-gradient(right, #212121 0%, #bdbdbd 100%);
+  -webkit-border-image: -webkit-linear-gradient(right, #212121 0%, #bdbdbd 100%);
+  border-image: linear-gradient(to right, #212121 0%, #bdbdbd 100%);
+  border-image-slice: 1; }
+  input:invalid, select:invalid,
+  option:invalid {
+    color: #f80759; }
+  input[name="cost"], select[name="cost"],
+  option[name="cost"] {
+    width: 60px; }
+    input[name="cost"]:after, select[name="cost"]:after,
+    option[name="cost"]:after {
+      display: block;
+      content: ''; }
+  input[name="desc"], select[name="desc"],
+  option[name="desc"] {
+    width: 100%;
+    min-width: 120px; }
+  input[type="number"], select[type="number"],
+  option[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield; }
+    input[type="number"]::-webkit-outer-spin-button, select[type="number"]::-webkit-outer-spin-button,
+    option[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button, select[type="number"]::-webkit-inner-spin-button,
+    option[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0; }
+  input[type="date"], select[type="date"],
+  option[type="date"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield; }
+    input[type="date"]::-webkit-outer-spin-button, select[type="date"]::-webkit-outer-spin-button,
+    option[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner-spin-button, select[type="date"]::-webkit-inner-spin-button,
+    option[type="date"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      margin: 0;
+      display: none; }
+  input[name="freqUnit"], select[name="freqUnit"],
+  option[name="freqUnit"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0 .2em; }
 
 button.btn {
   background: none;
-  border: 4px solid #37c3be;
-  color: #fefefe;
+  box-shadow: none !important;
+  border: 2px solid #11998e;
   font-size: 1.2em;
   font-weight: bold; }
   button.btn:hover {
-    background-color: #37c3be; }
+    border: 2px solid #38ef7d;
+    color: #b0b0b0; }
+  button.btn:active {
+    border: 2px solid #38ef7d;
+    color: #212121; }
 button.btn-remove-row {
   background: none;
-  border: 4px solid #fa4359;
-  color: #fefefe;
+  color: #f80759;
   font-size: 1.2em;
   font-weight: bold; }
   button.btn-remove-row:hover {
-    background-color: #fa4359; }
+    color: #bc4e9c;
+    transform: scale(0.8); }
+button.bt-user-logout {
+  padding: 0 .3em;
+  margin: 0 .3em;
+  color: #11998e;
+  border: none; }
+  button.bt-user-logout:hover {
+    background: none;
+    color: #38ef7d; }
 
 /*# sourceMappingURL=style.css.map */

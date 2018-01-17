@@ -18,7 +18,7 @@
 				<div>
 					<img class="user-img" src="">
 					<h4 class="user-nm"></h4>
-					<button class="btn bt-user-logout">(Log Out)</button>
+					<button class="bt-user-logout">(Log Out)</button>
 				</div>
 				<div class="view-options">
 					<input type="radio" id="hidetotal-true" name="hidetotal">
@@ -38,90 +38,92 @@
 			You must <a href="#">sign in</a> to manage recurring payments
 		</div>
 		<div class="card payments-disp" style="display: none">
-			<table class="table" id="payments-list">
-				<colgroup>
-					<col>
-					<col>
-					<col>
-					<col>
-				</colgroup>
-				<thead>
-					<tr>
-						<th>Payment</th>
-						<th>Cost Every Interval</th>
-						<th>Next Charge</th>
-						<th><span class="sr-only">Actions</span></th>
-					</tr>
-				</thead>
-				<tbody class="payments-items">
-					<!-- rows will show up here -->
-				</tbody>
-				<tfoot>
-					<tr class="payments-totals show-money">
-						<td>Total: </td>
-						<td class="total-row"></td>
-						<td colspan="3"></td>
-					</tr>
-				</tfoot>
-			</table>
+			<div class="table-responsive">
+				<table class="table" id="payments-list">
+					<colgroup>
+						<col>
+						<col>
+						<col>
+						<col>
+					</colgroup>
+					<thead>
+						<tr>
+							<th>Payment</th>
+							<th>Recurring Cost</th>
+							<th>Next Charge</th>
+							<th><span class="sr-only">Actions</span></th>
+						</tr>
+					</thead>
+					<tbody class="payments-items">
+						<!-- rows will show up here -->
+					</tbody>
+					<tfoot>
+						<tr class="payments-totals show-money">
+							<td>Total: </td>
+							<td class="total-row"></td>
+							<td colspan="3"></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
 		</div>
 		<div class="card payments-form">
 			<h3>Add a New Payment</h3>
-			<table class="table">
-				<colgroup>
-					<col>
-					<col>
-					<col>
-					<col>
-				</colgroup>
-				<thead>
-					<tr>
-						<th>Store Name</th>
-						<th>Cost Every Interval</th>
-						<th>First Charge</th>
-						<th><span class="sr-only">Actions</span></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="payments-new">
-						<td>
-							<div class="form-group">
-								<label class="sr-only">Store Name</label>
-								<input type="text" name="store" id="new-store" placeholder="Store Name" required>
-								<small class="desc-text">You can add a description later</small>
-							</div>
-						</td>
-						<td>
-							<div class="form-group">
-								<label class="sr-only">Recurring Cost</label>
-								$<input type="number" name="cost" id="new-cost" placeholder="50" required>
-								<select name="freqUnit" id="new-freqUnit">
-									<option value="hour">Hourly</option>
-									<option value="day">Daily</option>
-									<option value="week">Weekly</option>
-									<option value="month">Monthly</option>
-									<option value="year" selected>Yearly</option>
-								</select>
-							<div>
-						</td>
-						<td>
-							<div>
+			<div class="table-responsive">
+				<table class="table">
+					<colgroup>
+						<col>
+						<col>
+						<col>
+						<col>
+					</colgroup>
+					<thead>
+						<tr>
+							<th>Store Name</th>
+							<th>Recurring Cost</th>
+							<th>First Charge</th>
+							<th><span class="sr-only">Actions</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="payments-new">
+							<td>
+								<div class="form-group">
+									<label class="sr-only">Store Name</label>
+									<input type="text" name="store" id="new-store" placeholder="Store Name" required>
+									<small class="desc-text">You can add a description later</small>
+								</div>
+							</td>
+							<td>
+								<div class="form-group">
+									<label class="sr-only">Recurring Cost</label>
+									$<input type="number" name="cost" id="new-cost" placeholder="50" required>
+									<select name="freqUnit" id="new-freqUnit">
+										<option value="hour">Hourly</option>
+										<option value="day">Daily</option>
+										<option value="week">Weekly</option>
+										<option value="month">Monthly</option>
+										<option value="year" selected>Yearly</option>
+									</select>
+								</div>
+							</td>
+							<td>
 								<label class="sr-only">Next Charge Date and Time</label>
 								<input type="date" name="firstEvntDay" id="new-firstEvntDay" min="2018-01-01" max="2020-01-01" value="2018-06-06" required>
-								 at 
+								at 
 								<input type="time" step="60" name="firstEvntTime" id="new-firstEvntTime" value="12:00" required>
-							</div>
-							<small class="count-until">Future charge dates will be calculated using this</small>
-						</td>
-						<td>
-							<button class="btn btn-add-new">+ Add</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+								<small class="count-until">Future charge dates will be calculated using this</small>
+							</td>
+							<td>
+								<button class="btn btn-add-new">+ Add</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
-	
+
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
