@@ -103,8 +103,6 @@ function onlyIfSignedIn(user){
 			unshowPayments(data);
 		});
 
-	recheckInt = setInterval(recheckCountdown, countUnit === 'minutes' ? 60000 : 1000 );
-
 	$('.btn-add-new').on('click', sendNewPayment);
 	$('.payments-items').on('change', 'input, select', updatePayment);
 	$('.payments-items').on('click', '.btn-remove-row', delPayment);
@@ -115,6 +113,8 @@ function onlyIfSignedIn(user){
 	$('#hidetotal-false').on('change', function(){
 		$('#should-hide-money').empty();
 	});
+
+	recheckInt = setInterval(recheckCountdown, countUnit === 'minutes' ? 3000 : 1000 );
 }
 
 /* Form Method: sendNewPayment
@@ -320,6 +320,7 @@ function recheckCountdown(){
 					}
 			}
 		});
+	console.log('rechecked done');
 }
 
 
