@@ -66,7 +66,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 	}
 	switchUItoSignedIn(currentUser);
 	onlyIfSignedIn(currentUser);
-
+	recheckInt = setInterval(myFunction, 3000);
   } else {
     currentUser = undefined;
 
@@ -335,7 +335,9 @@ function recheckCountdown(){
 		});
 	console.log('rechecked done');
 }
-
+function myFunction(){
+	console.log('counted');
+}
 
 /* Previous function: using jquery 
 function recheckCountdown(countUnit){

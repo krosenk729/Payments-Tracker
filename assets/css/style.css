@@ -146,7 +146,8 @@ button.active {
 table * {
   line-height: 2.5em; }
 table th, table td {
-  vertical-align: top; }
+  vertical-align: top;
+  padding: .7em .4em; }
 table td {
   min-width: 200px; }
 table .payments-items > tr:hover {
@@ -159,9 +160,7 @@ table col:nth-child(1) {
 table col:nth-child(2) {
   min-width: 195; }
 table col:nth-child(3) {
-  min-width: 310px; }
-table col:nth-child(4) {
-  min-width: 90px; }
+  min-width: 322px; }
 table td:nth-child(4) {
   text-align: center; }
 
