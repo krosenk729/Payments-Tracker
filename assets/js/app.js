@@ -306,7 +306,7 @@ function recheckCountdown(){
 					console.log('moment for '+ i, tmoment, tmoment.isSameOrBefore());
 				if( tmoment.isSameOrBefore() ){
 					let tdiff = tmoment.diff(new Date, tfreqUnit), 
-						tnewDate = tmoment.add(tdiff, tfreqUnit),
+						tnewDate = tmoment.add(tdiff + 1, tfreqUnit),
 						p = 'payments/'+ i,
 						o = {};
 					o.firstEvntDay = tnewDate.format('YYYY-MM-DD');
