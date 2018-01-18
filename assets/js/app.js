@@ -303,7 +303,7 @@ function recheckCountdown(){
 					tfirstEvntTime = data[i].firstEvntTime,
 					tfreqUnit = data[i].freqUnit,
 					tmoment = moment(tfirstEvntDay + ' ' + tfirstEvntTime);
-					console.log('moment for '+ i, tmoment, tmomet.isSameOrBefore());
+					console.log('moment for '+ i, tmoment, tmoment.isSameOrBefore());
 				if( tmoment.isSameOrBefore() ){
 					let tdiff = tmoment.diff(new Date, tfreqUnit), 
 						tnewDate = tmoment.add(tdiff, tfreqUnit),
