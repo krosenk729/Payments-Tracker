@@ -205,6 +205,7 @@ table{
 
 	th, td{
 		vertical-align: top;
+		padding: .7em .4em;
 	}
 
 	td{
@@ -228,9 +229,9 @@ table{
 	col:nth-child(3){
 		min-width: 322px;
 	}
-	col:nth-child(4){
-		min-width: 90px;
-	}
+	// col:nth-child(4){
+	// 	min-width: 90px;
+	// }
 	td:nth-child(4){
 		text-align: center;
 	}
