@@ -275,20 +275,6 @@ function calcTotal(){
 	$('.payments-totals td:nth-child(2)').text(total);
 }
 
-/*Previous function: using jquery UI modifications
-function calcTotal(){
-	let total = 0,
-		all = $('.payments-items input[name="cost"]');
-
-	for(let i=0, x = all.length; i < x; i++){
-		total += Number(all[i].value);
-	}
-
-	$('.payments-totals td:nth-child(2)').text(total);
-}
-*/
-
-
 /* Helper Function: unshowPayments
 // Opposite of showPayments
 // Accepts an object which represents the return value from a firebase remove event 
@@ -308,16 +294,16 @@ function unshowPayments(data){
 // If a date has not passed, the countdown time until next event is updated
 */
 function recheckCountdown(){
-	console.log('rechecked');
 	firebase.database().ref('payments').orderByChild('user').equalTo(currentUser.id)
 		.once('value', function(data){
 			data = data.val();
+			console.log('rechecked', data);
 			for(let i in data){
 				let tfirstEvntDay = data[i].firstEvntDay,
 					tfirstEvntTime = data[i].firstEvntTime,
 					tfreqUnit = data[i].freqUnit,
 					tmoment = moment(tfirstEvntDay + ' ' + tfirstEvntTime);
-
+					console.log('moment for '+ i, tmoment, tmomet.isSameOrBefore());
 				if( tmoment.isSameOrBefore() ){
 					let tdiff = tmoment.diff(new Date, tfreqUnit), 
 						tnewDate = tmoment.add(tdiff, tfreqUnit),
@@ -333,40 +319,6 @@ function recheckCountdown(){
 		});
 	console.log('rechecked done');
 }
-
-/* Previous function: using jquery 
-function recheckCountdown(countUnit){
-	let all = $('.payments-items tr');
-	console.log('rechecked');
-	for(let i = 0, x=all.length; i < x; i++){
-		let trow = all[i],
-			tfirstEvntDay = $(trow).find('input[name="firstEvntDay"]').val(),
-			tfirstEvntTime = $(trow).find('input[name="firstEvntTime"]').val(),
-			tdiff = countdownTo(tfirstEvntDay, tfirstEvntTime, '', 'seconds');
-
-		if(tdiff > 0){
-			let tnewDate = moment(tfirstEvntDay + ' ' + tfirstEvntTime).add(1, $(trow).find('select[name="freqUnit"]').val()),
-				p = 'payments/'+ trow.dataset.id,
-				o = {};
-				o.firstEvntDay = tnewDate.format('YYYY-MM-DD');
-				o.firstEvntTime = tnewDate.format('HH:mm');
-			updateFirebase(p, o, 'update');
-		} else {
-			$(trow).find('.count-until').text('Next charge in '
-				+ Math.abs(countdownTo(tfirstEvntDay, tfirstEvntTime, '', countUnit))
-				+ ' ' + countUnit);
-		}
-	}
-}
-*/
-
-
-/* Helper Function: coundtownTo
-// Returns the time between a day, time and passed date
-*/
-// function countdownTo( nextEventDay, nextEventTime, untilDate, unit = 'days'){
-// 	return moment(untilDate || new Date()).diff( nextEventDay + ' ' + nextEventTime , unit);
-// }
 
 /* Helper Function: formatNumber
 // Returns a number formatted with commas 
