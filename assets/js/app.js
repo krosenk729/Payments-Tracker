@@ -87,6 +87,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 */
 
 function onlyIfSignedIn(user){
+	recheckInt = setInterval(recheckCountdown, 10000);
+	
 	firebase.database().ref('payments').orderByChild('user').equalTo(user.id)
 		.on('child_changed', function(data){
 			showPayments(data);
@@ -123,7 +125,6 @@ function onlyIfSignedIn(user){
 	// 	countUnit = 'days';
 	// 	recheckInt = setInterval(recheckCountdown, 86400000);
 	// });
-	recheckInt = setInterval(recheckCountdown, 10000);
 }
 
 /* Form Method: sendNewPayment
@@ -297,7 +298,6 @@ function recheckCountdown(){
 	firebase.database().ref('payments').orderByChild('user').equalTo(currentUser.id)
 		.once('value', function(data){
 			data = data.val();
-			console.log('rechecked', data);
 			for(let i in data){
 				let tfirstEvntDay = data[i].firstEvntDay,
 					tfirstEvntTime = data[i].firstEvntTime,
@@ -317,7 +317,7 @@ function recheckCountdown(){
 				}
 			}
 		});
-	console.log('rechecked done');
+	console.log('rechecked times');
 }
 
 /* Helper Function: formatNumber
