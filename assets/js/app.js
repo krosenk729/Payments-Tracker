@@ -66,10 +66,9 @@ firebase.auth().onAuthStateChanged(function(user) {
 	}
 	switchUItoSignedIn(currentUser);
 	onlyIfSignedIn(currentUser);
-	recheckInt = setInterval(myFunction, 3000);
   } else {
     currentUser = undefined;
-
+    clearInterval(recheckInt);
 	function switchUItoSignedOut(){
 		$('.bt-user-login, .placeholder-for-list').show();
 		$('.user-nm').text('');
@@ -114,17 +113,17 @@ function onlyIfSignedIn(user){
 		$('#should-hide-money').empty();
 	});
 
-	$('#countdown-min').on('change', function(){
-		clearInterval(recheckInt);
-		countUnit = 'minutes';
-		recheckInt = setInterval(recheckCountdown, 60000);
-	});
-	$('#countdown-min').on('change', function(){
-		clearInterval(recheckInt);
-		countUnit = 'days';
-		recheckInt = setInterval(recheckCountdown, 86400000);
-	});
-	recheckInt = setInterval(recheckCountdown, countUnit === 'minutes' ? 60000 : 86400000 );
+	// $('#countdown-min').on('change', function(){
+	// 	clearInterval(recheckInt);
+	// 	countUnit = 'minutes';
+	// 	recheckInt = setInterval(recheckCountdown, 60000);
+	// });
+	// $('#countdown-min').on('change', function(){
+	// 	clearInterval(recheckInt);
+	// 	countUnit = 'days';
+	// 	recheckInt = setInterval(recheckCountdown, 86400000);
+	// });
+	recheckInt = setInterval(recheckCountdown, 10000);
 }
 
 /* Form Method: sendNewPayment
@@ -216,8 +215,8 @@ function showPayments(data){
 		pfreqUnit = data.val().freqUnit,
 		pfirstEvntDay = data.val().firstEvntDay,
 		pfirstEvntTime = data.val().firstEvntTime,
-		pcosttoFuture = formatNumber((countdownTo(pfirstEvntDay, pfirstEvntTime, FUTUREYEAR, pfreqUnit)+1)*pcost),
-		pcounttonext = formatNumber(Math.abs(countdownTo(pfirstEvntDay, pfirstEvntTime, '', countUnit))) + ' ' + countUnit; 
+		pcosttoFuture = formatNumber(( Math.abs( moment(pfirstEvntDay + ' ' + pfirstEvntTime).diff(new Date, pfreqUnit) )+ 1 ) * pcost),
+		pcounttonext = moment(pfirstEvntDay + ' ' + pfirstEvntTime).fromNow(); 
 	
 	let pfragment = 
 	`<tr data-id="${ppath}">
@@ -243,7 +242,7 @@ function showPayments(data){
 		<input type="date" name="firstEvntDay" min="${moment(new Date).format('YYYY-MM-DD')}" max="${FUTUREYEAR}" value="${pfirstEvntDay}" required>
 		at 
 		<input type="time" step="60" name="firstEvntTime" value="${pfirstEvntTime}" required>
-		<small class="count-until">Next charge in ${pcounttonext}</small>
+		<small class="count-until">Next charge ${pcounttonext}</small>
 	</td>
 	<td>
 		<button class="btn btn-remove-row">- Remove</button>
@@ -316,27 +315,23 @@ function recheckCountdown(){
 			for(let i in data){
 				let tfirstEvntDay = data[i].firstEvntDay,
 					tfirstEvntTime = data[i].firstEvntTime,
-					tdiff = countdownTo(tfirstEvntDay, tfirstEvntTime, '', 'seconds');
+					tfreqUnit = data[i].freqUnit,
+					tmoment = moment(tfirstEvntDay + ' ' + tfirstEvntTime);
 
-					if(tdiff > 0){
-						let tnewDate = moment(tfirstEvntDay + ' ' + tfirstEvntTime).add(1, data[i].freqUnit),
-						// need to add 1 freqUnit until dtiff <0 
-							p = 'payments/'+ i,
-							o = {};
-						o.firstEvntDay = tnewDate.format('YYYY-MM-DD');
-						o.firstEvntTime = tnewDate.format('HH:mm');
-						updateFirebase(p, o, 'update');
-					} else {
-						$(`[data-id="${i}"] .count-until`).text('Next charge in '
-							+ formatNumber(Math.abs(countdownTo(tfirstEvntDay, tfirstEvntTime, '', countUnit)))
-							+ ' ' + countUnit);
-					}
+				if( tmoment.isSameOrBefore() ){
+					let tdiff = tmoment.diff(new Date, tfreqUnit), 
+						tnewDate = tmoment.add(tdiff, tfreqUnit),
+						p = 'payments/'+ i,
+						o = {};
+					o.firstEvntDay = tnewDate.format('YYYY-MM-DD');
+					o.firstEvntTime = tnewDate.format('HH:mm');
+					updateFirebase(p, o, 'update');
+				} else {
+					$(`[data-id="${i}"] .count-until`).text(`Next charge ${tmoment.fromNow()}`);
+				}
 			}
 		});
 	console.log('rechecked done');
-}
-function myFunction(){
-	console.log('counted');
 }
 
 /* Previous function: using jquery 
@@ -369,9 +364,9 @@ function recheckCountdown(countUnit){
 /* Helper Function: coundtownTo
 // Returns the time between a day, time and passed date
 */
-function countdownTo( nextEventDay, nextEventTime, untilDate, unit = 'days'){
-	return moment(untilDate || new Date()).diff( nextEventDay + ' ' + nextEventTime , unit);
-}
+// function countdownTo( nextEventDay, nextEventTime, untilDate, unit = 'days'){
+// 	return moment(untilDate || new Date()).diff( nextEventDay + ' ' + nextEventTime , unit);
+// }
 
 /* Helper Function: formatNumber
 // Returns a number formatted with commas 
